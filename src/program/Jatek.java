@@ -7,6 +7,10 @@ package program;
 import java.lang.Math;
 import java.awt.*;  
 import java.awt.event.*;
+import java.beans.PropertyChangeSupport;
+import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -32,12 +36,24 @@ public class Jatek {
     
     String[] ass = new String[400];
     
-    
+    private Set<EI.CCListener> listeners = new HashSet();
     
     public Jatek(){
         this.uyesseg[1] = setKockaDobas() +6;
         this.eletero[1] = setKockaDobas() + setKockaDobas() + 12;
         this.szerencse[1] = setKockaDobas() + 6;
+    }
+    
+    public void addListener(EI.CCListener listener) {
+        listeners.add(listener);
+    }
+    
+    public void removeListener(EI.CCListener listener) {
+        listeners.remove(listener);
+    }
+
+    private void broadcast() {
+        listeners.forEach(x -> x.actionValueChanged());
     }
     
     private int setKockaDobas(){
@@ -48,6 +64,7 @@ public class Jatek {
     public boolean setHarc(){
         // Teremtmény
         tamadoEro[soronJatekos] = setKockaDobas() + setKockaDobas(); // Támadóerő
+        broadcast();
         return false;
     }
     
@@ -58,67 +75,4 @@ public class Jatek {
 
 
   
-class TestApp {  
-    public void search() {   
-        // For searching  
-        System.out.println("Searching...");  
-    }  
-    public void sort() {   
-        // for sorting  
-        System.out.println("Sorting....");  
-    }  
-  
-    static public void main(String args[]) {  
-       TestApp app = new TestApp();  
-       GUI gui = new GUI(app);  
-    }  
-}  
-  
-class Command implements ActionListener  {  
-    static final int SEARCH = 0;  
-    static final int SORT = 1;  
-    int id;  
-    TestApp app;  
-  
-    public Command(int id, TestApp app) {  
-        this.id = id;  
-        this.app = app;  
-    }  
-  
-    public void actionPerformed(ActionEvent e) {  
-        switch(id) {  
-          case SEARCH:   
-            app.search();  
-            break;  
-          case SORT:  
-            app.sort();  
-            break;  
-        }  
-    }  
-}  
-  
-class GUI {  
-  
-    public GUI(TestApp app) {  
-        Frame f = new Frame();  
-        f.setLayout(new FlowLayout());            
-  
-        Command searchCmd = new Command(Command.SEARCH, app);  
-        Command sortCmd = new Command(Command.SORT, app);  
-  
-        Button b;  
-        f.add(b = new Button("Search"));  
-        b.addActionListener(searchCmd);  
-        f.add(b = new Button("Sort"));  
-        b.addActionListener(sortCmd);  
-  
-        List l;  
-        f.add(l = new List());  
-        l.add("Alphabetical");  
-        l.add("Chronological");  
-        l.addActionListener(sortCmd);  
-        f.pack();  
-  
-        f.show();  
-    }  
-}  
+

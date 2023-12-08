@@ -4,11 +4,18 @@
  */
 package program;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.*;
+
+interface HelloListener {
+    void someoneSaidHello();
+}
 /**
  *
  * @author SzabóRoland(SZOFT_20
  */
-public class HarcGUI extends javax.swing.JFrame {
+public class HarcGUI extends javax.swing.JFrame implements HelloListener, PropertyChangeListener {
 
     /**
      * Creates new form HarcGUI
@@ -16,7 +23,12 @@ public class HarcGUI extends javax.swing.JFrame {
     public HarcGUI() {
         initComponents();
     }
-
+    
+    @Override
+    public void someoneSaidHello() {
+        System.out.println("Hello there...");
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,6 +50,11 @@ public class HarcGUI extends javax.swing.JFrame {
         jLabel2.setText("Kocka (Modál?)");
 
         jButton1.setText("kocka dobás");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Ellenség");
 
@@ -97,6 +114,10 @@ public class HarcGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -140,4 +161,35 @@ public class HarcGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+}
+
+class Initiater {
+    private List<HelloListener> listeners = new ArrayList<HelloListener>();
+
+    public void addListener(HelloListener toAdd) {
+        listeners.add(toAdd);
+    }
+    
+    public void removeListener(HelloListener toRemove) {
+        try{
+            listeners.remove(toRemove);
+        }
+        catch(Exception e){
+        
+        }
+    }
+    
+
+    public void sayHello() {
+        //System.out.println("Hello!!");
+
+        // Notify everybody that may be interested.
+        for (HelloListener hl : listeners)
+            hl.someoneSaidHello();
+    }
 }
