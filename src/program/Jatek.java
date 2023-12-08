@@ -9,17 +9,32 @@ import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeSupport;
 import java.util.*;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  *
  * @author SzabóRoland(SZOFT_20
  */
 public class Jatek {
-    int[] uyesseg = {0,0}, eletero={0,0}, szerencse={0,0};
+    
+    // <editor-fold defaultstate="collapsed" desc="Event implmentation">
+    private Set<EI.CCListener> listeners = new HashSet();
+    
+    public void addListener(EI.CCListener listener) {
+        listeners.add(listener);
+    }
+    
+    public void removeListener(EI.CCListener listener) {
+        listeners.remove(listener);
+    }
+
+    private void broadcast() {
+        listeners.forEach(x -> x.actionValueChanged());
+    }
+    // </editor-fold>
+    
+    int uyesseg = 0, eletero=0, szerencse=0;
     int soronJatekos = 0; // 0: Ellenség, 1: Te
-    int[] tamadoEro = {0, 0};
+    //int tamadoEro = 0;
     
     String[] oldalak = {
         "Egy versenyre nevezel, aminek a lényege, hogy át kell kelni a halállabirintuson. A labirintusban tárgyakat találhatsz és szörnyekkel kell harcoljál.",
@@ -34,45 +49,50 @@ public class Jatek {
         "Hallod, hogy elölről súlyos lépések közelednek. Egy széles, állatbőrökbe öltözött, kőbaltás, primitívlény lép elő. Ahogy meglát, morog, a földre köp, majd a kőbaltát felemelve közeledik, és mindennek kinéz, csak barátságosnak nem. Előhúzod kardodat, és felkészülsz, hogy megküzdj a Barlangi Emberrel."    
     };
     
+    java.util.List<String> targyak;
+    
     String[] ass = new String[400];
-    
-    private Set<EI.CCListener> listeners = new HashSet();
-    
+     
     public Jatek(){
-        this.uyesseg[1] = setKockaDobas() +6;
-        this.eletero[1] = setKockaDobas() + setKockaDobas() + 12;
-        this.szerencse[1] = setKockaDobas() + 6;
+        this.uyesseg = setKockaDobas() +6;
+        this.eletero = setKockaDobas() + setKockaDobas() + 12;
+        this.szerencse = setKockaDobas() + 6;
     }
     
-    public void addListener(EI.CCListener listener) {
-        listeners.add(listener);
+    private boolean Harc(){
+        // Teremtmény
+        //tamadoEro[soronJatekos] = setKockaDobas() + setKockaDobas(); // Támadóerő
+        broadcast();
+        return false;
+        
     }
     
-    public void removeListener(EI.CCListener listener) {
-        listeners.remove(listener);
-    }
-
-    private void broadcast() {
-        listeners.forEach(x -> x.actionValueChanged());
+    public String setValaszt(int val){
+        return ass[val];
     }
     
     private int setKockaDobas(){
         // Két kockadobás egyszerre:
         return (int)((Math.random() * 6) + 1);
     }
-    
-    public boolean setHarc(){
-        // Teremtmény
-        tamadoEro[soronJatekos] = setKockaDobas() + setKockaDobas(); // Támadóerő
-        broadcast();
-        return false;
-    }
-    
-    public String setValaszt(int val){
-        return ass[val];
-    }
 }
 
-
-  
-
+class KalandOldal{
+    int oldalszam;
+    int[] mutat;
+    String oldalszoveg = "";
+    
+    int uyesseg = 0, eletero=0, szerencse=0;
+    
+    public KalandOldal(int oldalszam, int[] mutat, String oldalszoveg){
+        this.oldalszoveg = oldalszoveg; 
+        this.oldalszam = oldalszam;
+        
+        this.mutat = mutat;
+        
+    }
+    
+    public boolean setParameters(){
+        return false;
+    }
+}
