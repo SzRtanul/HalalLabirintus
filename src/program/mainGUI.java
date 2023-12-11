@@ -16,6 +16,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener{
         initComponents();
         //j.removeListener(this);
         j.addListener(this);
+        La_oldal.setText("Egy versenyre nevezel, aminek a lényege, hogy át kell kelni a halállabirintuson. A labirintusban tárgyakat találhatsz és szörnyekkel kell harcoljál.");
     }
 
     /**
@@ -29,7 +30,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener{
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jLabel8 = new javax.swing.JLabel();
+        La_oldal = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -50,9 +51,10 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener{
             }
         });
 
-        jLabel8.setToolTipText("");
-        jLabel8.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jScrollPane1.setViewportView(jLabel8);
+        La_oldal.setToolTipText("");
+        La_oldal.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        La_oldal.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        jScrollPane1.setViewportView(La_oldal);
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -229,6 +231,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel La_ero;
+    private javax.swing.JLabel La_oldal;
     private javax.swing.JLabel La_szerencse;
     private javax.swing.JLabel La_ugyesseg;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -237,7 +240,6 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener{
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRadioButton1;
