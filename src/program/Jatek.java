@@ -50,8 +50,12 @@ public class Jatek {
     };
     
     java.util.List<String> targyak;
+    java.util.List<String> ekkovek;
+    java.util.List<String> italok;
+    java.util.List<String> etelkeszlet;
     
     String[] ass = new String[400];
+    int arany = 0;
      
     public Jatek(){
         this.uyesseg = setKockaDobas() +6;

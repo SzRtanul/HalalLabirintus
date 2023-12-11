@@ -14,6 +14,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener{
 
     public MainGUI() {
         initComponents();
+        //j.removeListener(this);
         j.addListener(this);
     }
 
@@ -43,6 +44,11 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel8.setToolTipText("");
         jLabel8.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -175,9 +181,13 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener{
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        j.setHarc();
+       // j.setHarc();
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        j.removeListener(this);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -243,4 +253,10 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener{
     public void kockadobas() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    @Override
+    protected void finalize() {  
+        j.removeListener(this);
+        //resources to be close  
+    }  
 }
