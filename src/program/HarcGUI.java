@@ -7,26 +7,17 @@ package program;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.*;
-
-interface HelloListener {
-    void someoneSaidHello();
-}
 /**
  *
  * @author SzabóRoland(SZOFT_20
  */
-public class HarcGUI extends javax.swing.JFrame implements HelloListener, PropertyChangeListener {
+public class HarcGUI extends javax.swing.JFrame implements EI.CCListener{
 
     /**
      * Creates new form HarcGUI
      */
     public HarcGUI() {
         initComponents();
-    }
-    
-    @Override
-    public void someoneSaidHello() {
-        System.out.println("Hello there...");
     }
     
     /**
@@ -162,13 +153,25 @@ public class HarcGUI extends javax.swing.JFrame implements HelloListener, Proper
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 
+   
+
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void actionValueChanged() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void kockadobasBegin() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void kockadobasEnd() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
-
-class Initiater {
+/*
+class Initiater<T> {
     private List<HelloListener> listeners = new ArrayList<HelloListener>();
 
     public void addListener(HelloListener toAdd) {
@@ -176,20 +179,6 @@ class Initiater {
     }
     
     public void removeListener(HelloListener toRemove) {
-        try{
-            listeners.remove(toRemove);
-        }
-        catch(Exception e){
-        
-        }
+        listeners.remove(toRemove);
     }
-    
-
-    public void sayHello() {
-        //System.out.println("Hello!!");
-
-        // Notify everybody that may be interested.
-        for (HelloListener hl : listeners)
-            hl.someoneSaidHello();
-    }
-}
+}*/

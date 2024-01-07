@@ -11,6 +11,7 @@ package program;
 public class EI { //EventInterfaces
     public static interface CCListener{
         public void actionValueChanged();
-        public void kockadobas();
+        public void kockadobasBegin();
+        public void kockadobasEnd();
     }
 }
