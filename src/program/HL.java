@@ -152,11 +152,16 @@ public class HL {
     
     public static boolean setHelyszin(int val){
         aktualisHelyszin = val;
+        broadcast();
         return false;
     }
     
-    public List<Utvonal> getIranyok(){
+    public List<Utvonal> getLehetosegek(){
         return utvonalak.stream().filter(x -> x.getStartID() == aktualisHelyszin).toList();
+    }
+    
+    public String getLeiras(){
+        return helyszinek.stream().filter(x -> x.getId() == aktualisHelyszin).findFirst().get().getSzoveg();
     }
 }
 
