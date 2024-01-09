@@ -4,10 +4,9 @@
  */
 package program;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.Math;
-import java.awt.*;  
-import java.awt.event.*;
-import java.beans.PropertyChangeSupport;
 import java.util.*;
 
 /**
@@ -38,19 +37,88 @@ public class HL {
     //int tamadoEro = 0;
     
     
-    
+    //Játék lépései:
+    private static byte lepesek = 3; // {megy, tárgyár, mehet?, csata}
+    private static int aktualisHelyszin = 1;
+    /*
     private static java.util.List<String> targyak;
     private static java.util.List<String> ekkovek;
     private static java.util.List<String> italok;
     private static java.util.List<String> etelkeszlet;
+    */
+    //private static List<>
+    private static int helyszinValtas = 0;
+    private final static List<Integer> helyszinElozmeny = new ArrayList<Integer>();
+    private final static List<InventoryItem> eszkoztar = new ArrayList<InventoryItem>();
     
-    private static String[] ass = new String[400];
-    private static int arany = 0;
+    
+    private final static List<Helyszin> helyszinek = new ArrayList<Helyszin>();
+    private final static List<Utvonal> utvonalak = new ArrayList<Utvonal>();
+    
+    private final static List<Targy> targyak = new ArrayList<Targy>();
+    private final static List<TargyAr> targyar = new ArrayList<TargyAr>();
+    private final static List<Vege> vege = new ArrayList<Vege>();
+    
+    // GUI visszaad
+    
+    
+    
+    //private static String[] ass = new String[400];
+    //private static int arany = 0;
      
-    public static void Restart(){
+    public static void Restart(boolean reupload){
         uyesseg = setKockaDobas() +6;
         eletero = setKockaDobas() + setKockaDobas() + 12;
         szerencse = setKockaDobas() + 6;
+        if(reupload){
+            fileUploads();
+        }
+    }
+    
+    public static void fileUploads(){
+        eszkoztar.clear();
+        helyszinek.clear();
+        utvonalak.clear();
+        targyak.clear();
+        targyar.clear();
+        
+        int i = 0;
+        String filename = "helyszinek.txt";
+        for(String item : uploadList(filename)){
+            try {
+                String[] sp = item.split(";");
+                helyszinek.add(new Helyszin(Integer.parseInt(sp[0]), sp[1])); 
+            } catch (Exception e) {
+                System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
+            }
+            i++;
+        }
+        
+        i = 0;
+        filename = "utvonalak.txt";
+        for(String item : uploadList(filename)){
+            try {
+                String[] sp = item.split(";");
+                utvonalak.add(new Utvonal(Integer.parseInt(sp[0]), Integer.parseInt(sp[1]))); 
+            } catch (Exception e) {
+                System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
+            }
+            i++;
+        }
+    }
+    
+    public static List<String> uploadList(String filename){
+        File f = new File(filename);
+        List<String> items = new ArrayList<String>();
+        try(Scanner sc = new Scanner(f, "utf-8")){
+            for(int i=0; sc.hasNextLine(); i++){
+                items.add(sc.nextLine());
+            }
+            sc.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("Nem található a fájl.");
+        }
+        return items;
     }
     
     private static boolean Harc(){
@@ -61,13 +129,61 @@ public class HL {
         
     }
     
-    public static String setValaszt(int val){
-        return ass[val];
+    public static boolean setValaszt(int val){
+        
+        return false;
     }
     
     private static int setKockaDobas(){
+        helyszinElozmeny.add(1);
         // Két kockadobás egyszerre:
         return (int)((Math.random() * 6) + 1);
+    }
+    
+    public static boolean vissza(boolean elore){
+        boolean both = false;
+        if(helyszinValtas > 0 && helyszinValtas < helyszinElozmeny.size()-1){
+            helyszinValtas += elore ? 1 : -1;
+            aktualisHelyszin = helyszinElozmeny.indexOf(helyszinValtas);
+            both = true;
+        }
+        return both;
+    }
+    
+    public static boolean setHelyszin(int val){
+        aktualisHelyszin = val;
+        return false;
+    }
+    
+    public List<Utvonal> getIranyok(){
+        return utvonalak.stream().filter(x -> x.getStartID() == aktualisHelyszin).toList();
+    }
+}
+
+class InventoryItem{
+    private int targyID;
+    private int menny;
+    
+    public InventoryItem(int targyID){
+        this.menny = 0;
+        this.targyID = targyID;
+    }
+    
+    public int getTargyID(){
+        return targyID;
+    }
+    
+    public int getMenny(){
+        return menny;
+    }
+    
+    public boolean ad(int menny){
+        boolean both = false;
+        if(this.menny + menny >= 0){
+            this.menny += menny;
+            both = true;
+        }
+        return both;
     }
 }
 
@@ -123,3 +239,56 @@ class Vege{
         return nyert;
     }
 }
+
+class Targy{
+    private int id;
+    private String nev;
+    
+    public Targy(int id, String nev){
+        this.id = id;
+        this.nev = nev;
+    }
+    
+    public int getID(){
+        return id;
+    }
+    
+    public String getNev(){
+        return nev;
+    }
+}
+
+class TargyAr{
+    private int helyszinID;
+    private int targyID;
+    private int ar;
+    private boolean egyszerFizetendo;
+    
+    public TargyAr(int helyszinID, int targyID, int ar, boolean egyszerFizetendo){
+        this.helyszinID = helyszinID;
+        this.targyID = targyID;
+        this.ar = ar;
+        this.egyszerFizetendo = egyszerFizetendo;
+    }
+    
+    public int getHelyszinID(){
+        return helyszinID;
+    }
+    
+    public int getTargyID(){
+        return targyID;
+    }
+    
+     public int getAr(){
+        return ar;
+    }
+     
+    public boolean vesz(){
+        boolean both = true;
+        if (egyszerFizetendo) {
+            ar = 0;
+        }
+        return both;
+    }
+}
+
