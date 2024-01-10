@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.Math;
 import java.util.*;
+import objektumok.*;
 
 /**
  *
@@ -73,52 +74,7 @@ public class HL {
         if(reupload){
             fileUploads();
         }
-    }
-    
-    public static void fileUploads(){
-        eszkoztar.clear();
-        helyszinek.clear();
-        utvonalak.clear();
-        targyak.clear();
-        targyar.clear();
-        
-        int i = 0;
-        String filename = "helyszinek.txt";
-        for(String item : uploadList(filename)){
-            try {
-                String[] sp = item.split(";");
-                helyszinek.add(new Helyszin(Integer.parseInt(sp[0]), sp[1])); 
-            } catch (Exception e) {
-                System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
-            }
-            i++;
-        }
-        
-        i = 0;
-        filename = "utvonalak.txt";
-        for(String item : uploadList(filename)){
-            try {
-                String[] sp = item.split(";");
-                utvonalak.add(new Utvonal(Integer.parseInt(sp[0]), Integer.parseInt(sp[1]))); 
-            } catch (Exception e) {
-                System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
-            }
-            i++;
-        }
-    }
-    
-    public static List<String> uploadList(String filename){
-        File f = new File(filename);
-        List<String> items = new ArrayList<String>();
-        try(Scanner sc = new Scanner(f, "utf-8")){
-            for(int i=0; sc.hasNextLine(); i++){
-                items.add(sc.nextLine());
-            }
-            sc.close();
-        } catch (FileNotFoundException ex) {
-            System.out.println("Nem található a fájl.");
-        }
-        return items;
+        broadcast();
     }
     
     private static boolean Harc(){
@@ -156,144 +112,62 @@ public class HL {
         return false;
     }
     
-    public List<Utvonal> getLehetosegek(){
+    public static List<Utvonal> getLehetosegek(){
         return utvonalak.stream().filter(x -> x.getStartID() == aktualisHelyszin).toList();
     }
     
-    public String getLeiras(){
+    public static String getLeiras(){
+        for(Helyszin item: helyszinek){
+            System.out.println(item.getSzoveg());
+        }
         return helyszinek.stream().filter(x -> x.getId() == aktualisHelyszin).findFirst().get().getSzoveg();
     }
-}
-
-class InventoryItem{
-    private int targyID;
-    private int menny;
     
-    public InventoryItem(int targyID){
-        this.menny = 0;
-        this.targyID = targyID;
-    }
-    
-    public int getTargyID(){
-        return targyID;
-    }
-    
-    public int getMenny(){
-        return menny;
-    }
-    
-    public boolean ad(int menny){
-        boolean both = false;
-        if(this.menny + menny >= 0){
-            this.menny += menny;
-            both = true;
+    public static List<String> uploadList(String filename){
+        File f = new File(filename);
+        List<String> items = new ArrayList<String>();
+        try(Scanner sc = new Scanner(f, "utf-8")){
+            for(int i=0; sc.hasNextLine(); i++){
+                items.add(sc.nextLine());
+            }
+            sc.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("Nem található a fájl.");
         }
-        return both;
-    }
-}
-
-class Helyszin{
-    private int id;
-    private String szoveg;
-    
-    public Helyszin(int id, String szoveg){
-        this.id = id;
-        this.szoveg=szoveg;
+        return items;
     }
     
-    public int getId(){
-        return id;
-    }
     
-    public String getSzoveg(){
-        return szoveg;
-    }
-}
-
-class Utvonal{
-    private int startID = -1;
-    private int celID = -1;
     
-    public Utvonal(int start, int cel){
-        this.startID = start;
-        this.celID = cel;
-    }
-    
-    public int getStartID(){
-        return startID;
-    }
-    public int getCelID(){
-        return celID;
-    }
-}
-
-class Vege{
-    private int helyszinID;
-    private boolean nyert;
-    
-    public Vege(int helyszinID, boolean nyert){
-        this.helyszinID = helyszinID;
-        this.nyert = nyert;
-    }
-    
-    public int getHelyszinID(){
-        return helyszinID;
-    }
-    
-    public boolean getNyert(){
-        return nyert;
-    }
-}
-
-class Targy{
-    private int id;
-    private String nev;
-    
-    public Targy(int id, String nev){
-        this.id = id;
-        this.nev = nev;
-    }
-    
-    public int getID(){
-        return id;
-    }
-    
-    public String getNev(){
-        return nev;
-    }
-}
-
-class TargyAr{
-    private int helyszinID;
-    private int targyID;
-    private int ar;
-    private boolean egyszerFizetendo;
-    
-    public TargyAr(int helyszinID, int targyID, int ar, boolean egyszerFizetendo){
-        this.helyszinID = helyszinID;
-        this.targyID = targyID;
-        this.ar = ar;
-        this.egyszerFizetendo = egyszerFizetendo;
-    }
-    
-    public int getHelyszinID(){
-        return helyszinID;
-    }
-    
-    public int getTargyID(){
-        return targyID;
-    }
-    
-     public int getAr(){
-        return ar;
-    }
-     
-    public boolean vesz(){
-        boolean both = true;
-        if (egyszerFizetendo) {
-            ar = 0;
+     public static void fileUploads(){
+        eszkoztar.clear();
+        helyszinek.clear();
+        utvonalak.clear();
+        targyak.clear();
+        targyar.clear();
+        
+        int i = 0;
+        String filename = "helyszinek.txt";
+        for(String item : uploadList(filename)){
+            try {
+                String[] sp = item.split(";");
+                helyszinek.add(new Helyszin(Integer.parseInt(sp[0]), sp[1])); 
+            } catch (Exception e) {
+                System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
+            }
+            i++;
         }
-        return both;
+        
+        i = 0;
+        filename = "utvonalak.txt";
+        for(String item : uploadList(filename)){
+            try {
+                String[] sp = item.split(";");
+                utvonalak.add(new Utvonal(Integer.parseInt(sp[0]), Integer.parseInt(sp[1]))); 
+            } catch (Exception e) {
+                System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
+            }
+            i++;
+        }
     }
 }
-

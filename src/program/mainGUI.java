@@ -21,6 +21,7 @@ import javafx.css.SizeUnits;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.RadioButton;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
@@ -29,6 +30,9 @@ import javafx.util.Duration;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
+import objektumok.*;
 
 
 public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
@@ -38,7 +42,8 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
     public MainGUI() {
         initComponents();
         HL.addListener(this);
-        La_oldal.setText("<html>Egy versenyre nevezel, aminek a lényege, hogy át kell kelni a halállabirintuson. A labirintusban tárgyakat találhatsz és szörnyekkel kell harcoljál.</html>");    
+        //La_oldal.setText("<html>Egy versenyre nevezel, aminek a lényege, hogy át kell kelni a halállabirintuson. A labirintusban tárgyakat találhatsz és szörnyekkel kell harcoljál.</html>");    
+        HL.Restart(true);
         Platform.startup(new Runnable() {
             @Override
             public void run() {
@@ -82,8 +87,8 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                     System.out.println();
                 }   
             }            
-        }); 
-       // La_oldal.setBounds(0, 0, 200, La_oldal.getHeight());
+        });
+       La_oldal.setBounds(0, 0, 200, La_oldal.getHeight());
        La_oldal.setMaximumSize(new Dimension(SCPa_oldal.getWidth(), La_oldal.getHeight()));
 
     }
@@ -104,7 +109,6 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         La_ugyesseg = new javax.swing.JLabel();
         La_szerencse = new javax.swing.JLabel();
@@ -114,6 +118,9 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         Pa_video = new javax.swing.JPanel();
+        Bt_dob = new javax.swing.JButton();
+        SCPa_iranyok = new javax.swing.JScrollPane();
+        La_eszkoztar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -123,10 +130,14 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
             }
         });
 
+        SCPa_oldal.setMaximumSize(new java.awt.Dimension(486, 108));
+        SCPa_oldal.setMinimumSize(new java.awt.Dimension(484, 108));
+
         La_oldal.setToolTipText("");
         La_oldal.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        La_oldal.setMaximumSize(new java.awt.Dimension(603, 339));
-        La_oldal.setPreferredSize(new java.awt.Dimension(603, 339));
+        La_oldal.setMaximumSize(new java.awt.Dimension(454, 1080));
+        La_oldal.setOpaque(true);
+        La_oldal.setPreferredSize(new java.awt.Dimension(454, 96));
         La_oldal.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         SCPa_oldal.setViewportView(La_oldal);
 
@@ -143,21 +154,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
 
         jLabel2.setText("Mit lépsz?");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel1.setAutoscrolls(true);
-        jPanel1.setPreferredSize(new java.awt.Dimension(100, 79));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 155, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 77, Short.MAX_VALUE)
-        );
-
+        jPanel2.setBackground(new java.awt.Color(200, 200, 200));
         jPanel2.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.setAutoscrolls(true);
 
@@ -165,11 +162,11 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 237, Short.MAX_VALUE)
+            .addGap(0, 200, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
+            .addGap(0, 61, Short.MAX_VALUE)
         );
 
         La_ugyesseg.setText("0");
@@ -199,24 +196,32 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
             .addGap(0, 282, Short.MAX_VALUE)
         );
 
+        Bt_dob.setBackground(new java.awt.Color(102, 255, 51));
+        Bt_dob.setText("dob");
+        Bt_dob.setOpaque(true);
+
+        SCPa_iranyok.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        La_eszkoztar.setBackground(new java.awt.Color(255, 102, 51));
+        La_eszkoztar.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        La_eszkoztar.setOpaque(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(50, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(Pa_video, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(SCPa_oldal, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(SCPa_oldal, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,21 +234,24 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                                     .addComponent(La_ero)
                                     .addComponent(La_szerencse)))
                             .addComponent(jLabel2)
+                            .addComponent(jButton2)
+                            .addComponent(SCPa_iranyok, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(Bt_dob, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(La_eszkoztar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Pa_video, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -256,22 +264,23 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                         .addGap(2, 2, 2)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(La_ero)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(La_eszkoztar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(jButton2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Bt_dob, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(SCPa_iranyok)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2))
                     .addComponent(SCPa_oldal, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(124, 124, 124)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
@@ -325,11 +334,14 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Bt_dob;
     private javax.swing.JLabel La_ero;
+    private javax.swing.JLabel La_eszkoztar;
     private javax.swing.JLabel La_oldal;
     private javax.swing.JLabel La_szerencse;
     private javax.swing.JLabel La_ugyesseg;
     private javax.swing.JPanel Pa_video;
+    private javax.swing.JScrollPane SCPa_iranyok;
     private javax.swing.JScrollPane SCPa_oldal;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
@@ -339,7 +351,6 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRadioButton1;
     // End of variables declaration//GEN-END:variables
@@ -347,15 +358,19 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
     @Override
     public void actionValueChanged() {
         System.out.println("A jó program szilveszterkor is fut.");
+        La_oldal.setText(htmlMainTree("<p style=\"padding: 3px 5px 3px 3px\">"+HL.getLeiras()+"</p>"));
+        ButtonGroup valaszt = new ButtonGroup();
+        for (Utvonal item : HL.getLehetosegek()){
+            JRadioButton rb = new JRadioButton(item.getCelID() + "Geci");
+            valaszt.add(rb);
+            rb.setBounds(2, 2, 2000, 40);
+            SCPa_iranyok.add(rb);
+        }
+        SCPa_iranyok.updateUI();
     }
 
     
     
-    @Override
-    protected void finalize() {  
-        HL.removeListener(this);
-        //resources to be close  
-    }  
 
     @Override
     public void kockadobasBegin() {
@@ -370,4 +385,22 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
     // ossz = 6
     // i = 3
     
+    public String htmlMainTree(String szoveg){
+        return String.format(
+                "<html>"
+                    + "<head>"
+                        + "<meta charset=\"UTF-8\">"
+                    + "</head>"
+                    + "<body>"
+                        + "%s"
+                    + "</body>"
+                + "</html>", szoveg);
+    }
+    
+    
+    @Override
+    protected void finalize() {  
+        HL.removeListener(this);
+        //resources to be close  
+    }  
 }
