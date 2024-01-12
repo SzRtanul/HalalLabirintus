@@ -4,24 +4,21 @@
  */
 package program;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collections;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
-import javafx.css.Size;
-import javafx.css.SizeUnits;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.RadioButton;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
@@ -38,6 +35,7 @@ import objektumok.*;
 public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
     
     //Jatek j = new Jatek();
+    private ButtonGroup valaszt;
 
     public MainGUI() {
         initComponents();
@@ -67,7 +65,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                     mediaView.setPreserveRatio(true);
                     
                     mediaPlayer.setAutoPlay(true);
-                    mediaPlayer.getStatus().equals(Status.PLAYING);
+                    //mediaPlayer.getStatus().equals(Status.PLAYING);
                     mediaPlayer.setOnEndOfMedia(new Runnable() {
                         @Override
                         public void run() {
@@ -88,9 +86,6 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                 }   
             }            
         });
-       La_oldal.setBounds(0, 0, 200, La_oldal.getHeight());
-       La_oldal.setMaximumSize(new Dimension(SCPa_oldal.getWidth(), La_oldal.getHeight()));
-
     }
 
     /**
@@ -107,7 +102,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         La_oldal = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        Bt_tovabb = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         La_ugyesseg = new javax.swing.JLabel();
@@ -120,7 +115,9 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         Pa_video = new javax.swing.JPanel();
         Bt_dob = new javax.swing.JButton();
         SCPa_iranyok = new javax.swing.JScrollPane();
+        Pa_irany = new javax.swing.JPanel();
         La_eszkoztar = new javax.swing.JLabel();
+        Bt_vissza = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -130,14 +127,17 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
             }
         });
 
+        SCPa_oldal.setAutoscrolls(true);
         SCPa_oldal.setMaximumSize(new java.awt.Dimension(486, 108));
         SCPa_oldal.setMinimumSize(new java.awt.Dimension(484, 108));
 
         La_oldal.setToolTipText("");
         La_oldal.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        La_oldal.setAutoscrolls(true);
         La_oldal.setMaximumSize(new java.awt.Dimension(454, 1080));
+        La_oldal.setMinimumSize(new java.awt.Dimension(454, 96));
         La_oldal.setOpaque(true);
-        La_oldal.setPreferredSize(new java.awt.Dimension(454, 96));
+        La_oldal.setPreferredSize(new java.awt.Dimension(454, 1000));
         La_oldal.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         SCPa_oldal.setViewportView(La_oldal);
 
@@ -145,10 +145,10 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
 
         jLabel1.setText("Ügyesség:");
 
-        jButton2.setText("Tovább");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        Bt_tovabb.setText("Tovább");
+        Bt_tovabb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                Bt_tovabbActionPerformed(evt);
             }
         });
 
@@ -202,9 +202,29 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
 
         SCPa_iranyok.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
+        javax.swing.GroupLayout Pa_iranyLayout = new javax.swing.GroupLayout(Pa_irany);
+        Pa_irany.setLayout(Pa_iranyLayout);
+        Pa_iranyLayout.setHorizontalGroup(
+            Pa_iranyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+        Pa_iranyLayout.setVerticalGroup(
+            Pa_iranyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        SCPa_iranyok.setViewportView(Pa_irany);
+
         La_eszkoztar.setBackground(new java.awt.Color(255, 102, 51));
         La_eszkoztar.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         La_eszkoztar.setOpaque(true);
+
+        Bt_vissza.setText("Vissza");
+        Bt_vissza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Bt_visszaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -234,7 +254,10 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                                     .addComponent(La_ero)
                                     .addComponent(La_szerencse)))
                             .addComponent(jLabel2)
-                            .addComponent(jButton2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Bt_tovabb)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Bt_vissza))
                             .addComponent(SCPa_iranyok, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,22 +301,39 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(SCPa_iranyok)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Bt_tovabb)
+                            .addComponent(Bt_vissza)))
                     .addComponent(SCPa_oldal, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       // j.setHarc();
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+    private void Bt_tovabbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bt_tovabbActionPerformed
+        JRadioButton selectedRadioButton = getSelectedRadioButton(valaszt);
+        if(selectedRadioButton != null){
+            HL.setValaszt(Integer.parseInt(selectedRadioButton.getText()));  
+        }
+    }//GEN-LAST:event_Bt_tovabbActionPerformed
+    
+    private static JRadioButton getSelectedRadioButton(ButtonGroup buttonGroup) {
+        for (javax.swing.AbstractButton button : Collections.list(buttonGroup.getElements())) {
+            if (button.isSelected()) {
+                return (JRadioButton) button;
+            }
+        }
+        return null;
+    }
+    
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         HL.removeListener(this);
     }//GEN-LAST:event_formWindowClosed
+
+    private void Bt_visszaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bt_visszaActionPerformed
+        HL.vissza(false);
+    }//GEN-LAST:event_Bt_visszaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,8 +362,6 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -335,17 +373,19 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bt_dob;
+    private javax.swing.JButton Bt_tovabb;
+    private javax.swing.JButton Bt_vissza;
     private javax.swing.JLabel La_ero;
     private javax.swing.JLabel La_eszkoztar;
     private javax.swing.JLabel La_oldal;
     private javax.swing.JLabel La_szerencse;
     private javax.swing.JLabel La_ugyesseg;
+    private javax.swing.JPanel Pa_irany;
     private javax.swing.JPanel Pa_video;
     private javax.swing.JScrollPane SCPa_iranyok;
     private javax.swing.JScrollPane SCPa_oldal;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -357,16 +397,23 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
 
     @Override
     public void actionValueChanged() {
-        System.out.println("A jó program szilveszterkor is fut.");
-        La_oldal.setText(htmlMainTree("<p style=\"padding: 3px 5px 3px 3px\">"+HL.getLeiras()+"</p>"));
-        ButtonGroup valaszt = new ButtonGroup();
+        La_oldal.setText(htmlMainTree("<p style=\"padding: 5px 10px 5px 10px; text-align: justify;\">"+HL.getLeiras()+"</p>"));
+        valaszt = new ButtonGroup();
+        int db = 0;
+        Pa_irany.removeAll();
+        
         for (Utvonal item : HL.getLehetosegek()){
-            JRadioButton rb = new JRadioButton(item.getCelID() + "Geci");
+            JRadioButton rb = new JRadioButton(item.getCelID() + "");
             valaszt.add(rb);
-            rb.setBounds(2, 2, 2000, 40);
-            SCPa_iranyok.add(rb);
+            rb.setBounds(2, (20 * db) , 2000, 20);
+            Pa_irany.add(rb);
+            db++;
         }
-        SCPa_iranyok.updateUI();
+        Pa_irany.updateUI();
+        
+        La_ugyesseg.setText(HL.getUgyesseg()+"");
+        La_ero.setText(HL.getEro()+"");
+        La_szerencse.setText(HL.getSzerencse()+"");
     }
 
     

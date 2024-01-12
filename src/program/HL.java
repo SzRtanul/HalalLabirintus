@@ -32,7 +32,7 @@ public class HL {
     }
     // </editor-fold>
     
-    private static int uyesseg = 0;
+    private static int ugyesseg = 0;
     private static int eletero = 0;
     private static int szerencse = 0;
     //int tamadoEro = 0;
@@ -49,7 +49,7 @@ public class HL {
     */
     //private static List<>
     private static int helyszinValtas = 0;
-    private final static List<Integer> helyszinElozmeny = new ArrayList<Integer>();
+    private final static Stack<Integer> helyszinElozmeny = new Stack<Integer>();
     private final static List<InventoryItem> eszkoztar = new ArrayList<InventoryItem>();
     
     
@@ -68,9 +68,12 @@ public class HL {
     //private static int arany = 0;
      
     public static void Restart(boolean reupload){
-        uyesseg = setKockaDobas() +6;
+        ugyesseg = setKockaDobas() +6;
         eletero = setKockaDobas() + setKockaDobas() + 12;
         szerencse = setKockaDobas() + 6;
+        
+        aktualisHelyszin = 1;
+        
         if(reupload){
             fileUploads();
         }
@@ -86,30 +89,39 @@ public class HL {
     }
     
     public static boolean setValaszt(int val){
-        
+        helyszinElozmeny.push(aktualisHelyszin);
+        if(setHelyszin(val)){ 
+            helyszinValtas++;
+        }
         return false;
     }
     
     private static int setKockaDobas(){
-        helyszinElozmeny.add(1);
+        //helyszinElozmeny.add(1);
         // Két kockadobás egyszerre:
         return (int)((Math.random() * 6) + 1);
     }
     
     public static boolean vissza(boolean elore){
         boolean both = false;
-        if(helyszinValtas > 0 && helyszinValtas < helyszinElozmeny.size()-1){
+        if(helyszinElozmeny.size() > 0){
             helyszinValtas += elore ? 1 : -1;
-            aktualisHelyszin = helyszinElozmeny.indexOf(helyszinValtas);
+            aktualisHelyszin = helyszinElozmeny.pop();
+            for(int item : helyszinElozmeny){
+                System.out.println(item);
+            }
+            System.out.println(helyszinValtas);
+            System.out.println(aktualisHelyszin);
+            setHelyszin(aktualisHelyszin);
             both = true;
         }
         return both;
     }
     
-    public static boolean setHelyszin(int val){
+    private static boolean setHelyszin(int val){
         aktualisHelyszin = val;
         broadcast();
-        return false;
+        return true;
     }
     
     public static List<Utvonal> getLehetosegek(){
@@ -117,10 +129,19 @@ public class HL {
     }
     
     public static String getLeiras(){
-        for(Helyszin item: helyszinek){
-            System.out.println(item.getSzoveg());
-        }
         return helyszinek.stream().filter(x -> x.getId() == aktualisHelyszin).findFirst().get().getSzoveg();
+    }
+    
+    public static int getUgyesseg(){
+        return ugyesseg;
+    }
+    
+    public static int getEro(){
+        return eletero;
+    }
+    
+    public static int getSzerencse(){
+        return szerencse;
     }
     
     public static List<String> uploadList(String filename){
