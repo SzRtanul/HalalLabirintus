@@ -128,8 +128,8 @@ public class HL {
         return utvonalak.stream().filter(x -> x.getStartID() == aktualisHelyszin).toList();
     }
     
-    public static String getLeiras(){
-        return helyszinek.stream().filter(x -> x.getId() == aktualisHelyszin).findFirst().get().getSzoveg();
+    public static Helyszin getHelyszin(){
+        return helyszinek.stream().filter(x -> x.getId() == aktualisHelyszin).findFirst().get();
     }
     
     public static int getUgyesseg(){
