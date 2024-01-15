@@ -1,0 +1,2 @@
+1;aranypénz;
+2;fekete kard;

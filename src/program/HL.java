@@ -57,7 +57,7 @@ public class HL {
     private final static List<Utvonal> utvonalak = new ArrayList<Utvonal>();
     
     private final static List<Targy> targyak = new ArrayList<Targy>();
-    private final static List<TargyAr> targyar = new ArrayList<TargyAr>();
+    private final static List<TargyAr> targyarak = new ArrayList<TargyAr>();
     private final static List<Vege> vege = new ArrayList<Vege>();
     
     // GUI visszaad
@@ -87,7 +87,15 @@ public class HL {
         return false;
         
     }
-    
+    public static boolean lapoz(){
+        boolean both = false;
+        helyszinElozmeny.push(aktualisHelyszin);
+        if(setHelyszin(aktualisHelyszin += 1)){ 
+            helyszinValtas++;
+            both=true;
+        }
+        return both;
+    }
     public static boolean setValaszt(int val){
         helyszinElozmeny.push(aktualisHelyszin);
         if(setHelyszin(val)){ 
@@ -104,7 +112,7 @@ public class HL {
     
     public static boolean vissza(boolean elore){
         boolean both = false;
-        if(helyszinElozmeny.size() > 0){
+        if(!helyszinElozmeny.isEmpty()){
             helyszinValtas += elore ? 1 : -1;
             aktualisHelyszin = helyszinElozmeny.pop();
             for(int item : helyszinElozmeny){
@@ -144,6 +152,10 @@ public class HL {
         return szerencse;
     }
     
+    public static List<InventoryItem> getEszkoztar(){
+        return eszkoztar.stream().toList();
+    }
+    
     public static List<String> uploadList(String filename){
         File f = new File(filename);
         List<String> items = new ArrayList<String>();
@@ -165,13 +177,13 @@ public class HL {
         helyszinek.clear();
         utvonalak.clear();
         targyak.clear();
-        targyar.clear();
+        targyarak.clear();
         
         int i = 0;
         String filename = "helyszinek.txt";
         for(String item : uploadList(filename)){
             try {
-                String[] sp = item.split(";");
+                String[] sp = item.split("\\|");
                 helyszinek.add(new Helyszin(Integer.parseInt(sp[0]), sp[1])); 
             } catch (Exception e) {
                 System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
@@ -185,6 +197,35 @@ public class HL {
             try {
                 String[] sp = item.split(";");
                 utvonalak.add(new Utvonal(Integer.parseInt(sp[0]), Integer.parseInt(sp[1]))); 
+            } catch (Exception e) {
+                System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
+            }
+            i++;
+        }
+        
+         i = 0;
+        filename = "Targy.txt";
+        for(String item : uploadList(filename)){
+            try {
+                String[] sp = item.split(";");
+                targyak.add(new Targy(Integer.parseInt(sp[0]), sp[1])); 
+            } catch (Exception e) {
+                System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
+            }
+            i++;
+        }
+        
+         i = 0;
+        filename = "targyar.txt";
+        for(String item : uploadList(filename)){
+            try {
+                String[] sp = item.split(";");
+                targyarak.add(new TargyAr(
+                        Integer.parseInt(sp[0]), 
+                        Integer.parseInt(sp[1]), 
+                        Integer.parseInt(sp[2]), 
+                        sp[3].equals("1"))
+                ); 
             } catch (Exception e) {
                 System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
             }

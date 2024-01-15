@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
+import java.util.List;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
@@ -43,6 +44,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         HL.addListener(this);
         //La_oldal.setText("<html>Egy versenyre nevezel, aminek a lényege, hogy át kell kelni a halállabirintuson. A labirintusban tárgyakat találhatsz és szörnyekkel kell harcoljál.</html>");    
         HL.Restart(true);
+        La_oldal.setToolTipText(null);
         Platform.startup(new Runnable() {
             @Override
             public void run() {
@@ -133,6 +135,9 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         SCPa_oldal.setMaximumSize(new java.awt.Dimension(486, 108));
         SCPa_oldal.setMinimumSize(new java.awt.Dimension(484, 108));
 
+        La_oldal.setBackground(new java.awt.Color(0, 204, 51));
+        La_oldal.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        La_oldal.setForeground(new java.awt.Color(0, 255, 204));
         La_oldal.setToolTipText("");
         La_oldal.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         La_oldal.setAutoscrolls(true);
@@ -324,6 +329,8 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         if(selectedRadioButton != null){
             HL.setValaszt(Integer.parseInt(selectedRadioButton.getText()));  
         }
+        
+       //HL.lapoz();
     }//GEN-LAST:event_Bt_tovabbActionPerformed
     
     private static JRadioButton getSelectedRadioButton(ButtonGroup buttonGroup) {
@@ -383,7 +390,14 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
     public void actionValueChanged() {
         SCPa_oldal.getVerticalScrollBar().setValue(0);
         La_oldalszam.setText(HL.getHelyszin().getId()+"");
-        La_oldal.setText(htmlMainTree("<p style=\"padding: 5px 10px 5px 10px; text-align: justify;\">"+HL.getHelyszin().getSzoveg()+"</p>"));
+        
+        La_oldal.setText(
+                htmlMainTree(
+                    "<p style=\"padding: 5px 10px 5px 10px; text-align: justify;\">" +
+                        setKiemelSzamok(HL.getHelyszin().getSzoveg()) +
+                    "</p>")
+        );
+        
         valaszt = new ButtonGroup();
         int db = 0;
         Pa_irany.removeAll();
@@ -402,7 +416,25 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         La_szerencse.setText(HL.getSzerencse()+"");
     }
 
-    
+    public String setKiemelSzamok(String szoveg){
+        String s = szoveg;
+        for (var item : Alakit.Modszer.getNumbersFromString(szoveg)){
+            System.out.println(item);
+            if(s.split(item+"-r").length > 1 || s.split(item+"r").length > 1){
+                
+                s = s.replaceAll(" "+item+"-r", "<span style=\"color: yellow;\"> "+item+"</span>-r");
+                s = s.replaceAll(item+"r", "<span style=\"color: yellow;\" >"+item+"</span>-r");
+            }
+            else if(s.split(item+" kg").length > 1){
+                 s = s.replaceAll(" "+item+" kg", "<span style=\"color: 2114C3;\" > "+item+"</span> kg");
+            }
+            else if(s.split("10 000").length < 1 && s.split(" " + item + " ").length > 1){
+                s =  s.replaceAll(" " + item+ " ", "<span style=\"color: FF0007;\"> "+item+" </span>");
+            }
+        }
+        s = s.replaceAll("10 000", "<span style=\"color: FFD700;\"> " + "10 000" + " </span>");
+        return s;
+    }
     
 
     @Override
