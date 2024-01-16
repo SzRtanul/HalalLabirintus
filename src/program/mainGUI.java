@@ -398,7 +398,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                         setKiemelSzamok(HL.getHelyszin().getSzoveg()) +
                     "</p>")
         );
-        La_oldal.setPreferredSize(new Dimension(SCPa_oldal.getWidth()-13, La_oldal.getPreferredSize().height));
+        La_oldal.setPreferredSize(new Dimension(SCPa_oldal.getWidth()-130, La_oldal.));
         La_oldal.updateUI();
         
         valaszt = new ButtonGroup();
@@ -424,8 +424,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         s = s.replaceAll("10 000", "<span style=\"color: FFD700;\"> " + "10 000" + " </span>");
         for (var item : Alakit.Modszer.getNumbersFromString(szoveg)){
             System.out.println(item);
-            if(s.split(item+"-r").length > 1 || s.split(item+"r").length > 1){
-                
+            if(s.split(item+"-r").length > 1 || s.split(item+"r").length > 1){    
                 s = s.replaceAll(" "+item+"-r", "<span style=\"color: yellow;\"> "+item+"</span>-r");
                 s = s.replaceAll(item+"r", "<span style=\"color: yellow;\" >"+item+"</span>-r");
             }
