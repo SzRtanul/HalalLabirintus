@@ -72,7 +72,7 @@ public class HL {
         eletero = setKockaDobas() + setKockaDobas() + 12;
         szerencse = setKockaDobas() + 6;
         
-        aktualisHelyszin = 326;
+        aktualisHelyszin = 0;
         
         if(reupload){
             fileUploads();
