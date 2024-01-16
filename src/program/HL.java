@@ -72,12 +72,18 @@ public class HL {
         eletero = setKockaDobas() + setKockaDobas() + 12;
         szerencse = setKockaDobas() + 6;
         
-        aktualisHelyszin = 1;
+        aktualisHelyszin = 326;
         
         if(reupload){
             fileUploads();
         }
         broadcast();
+    }
+    
+    private static boolean deleteZeroElements(){
+        targyarak.removeAll(targyarak.stream().filter(x -> x.getAr()== 0).toList());
+        eszkoztar.removeAll(eszkoztar.stream().filter(x -> x.getMenny() == 0).toList());
+        return false;
     }
     
     private static boolean Harc(){
@@ -124,6 +130,11 @@ public class HL {
             both = true;
         }
         return both;
+    }
+    
+    public static boolean dob(){
+        
+        return false;
     }
     
     private static boolean setHelyszin(int val){

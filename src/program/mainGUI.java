@@ -135,9 +135,9 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         SCPa_oldal.setMaximumSize(new java.awt.Dimension(486, 108));
         SCPa_oldal.setMinimumSize(new java.awt.Dimension(484, 108));
 
-        La_oldal.setBackground(new java.awt.Color(0, 204, 51));
+        La_oldal.setBackground(new java.awt.Color(0, 0, 0));
         La_oldal.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        La_oldal.setForeground(new java.awt.Color(0, 255, 204));
+        La_oldal.setForeground(new java.awt.Color(255, 51, 51));
         La_oldal.setToolTipText("");
         La_oldal.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         La_oldal.setAutoscrolls(true);
@@ -418,6 +418,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
 
     public String setKiemelSzamok(String szoveg){
         String s = szoveg;
+        s = s.replaceAll("10 000", "<span style=\"color: FFD700;\"> " + "10 000" + " </span>");
         for (var item : Alakit.Modszer.getNumbersFromString(szoveg)){
             System.out.println(item);
             if(s.split(item+"-r").length > 1 || s.split(item+"r").length > 1){
@@ -428,11 +429,10 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
             else if(s.split(item+" kg").length > 1){
                  s = s.replaceAll(" "+item+" kg", "<span style=\"color: 2114C3;\" > "+item+"</span> kg");
             }
-            else if(s.split("10 000").length < 1 && s.split(" " + item + " ").length > 1){
-                s =  s.replaceAll(" " + item+ " ", "<span style=\"color: FF0007;\"> "+item+" </span>");
+            else if(s.split(" " + item + " ").length > 1){
+                s =  s.replaceAll(" " + item+ " ", "<span style=\"color: blue;\"> "+item+" </span>");
             }
         }
-        s = s.replaceAll("10 000", "<span style=\"color: FFD700;\"> " + "10 000" + " </span>");
         return s;
     }
     
