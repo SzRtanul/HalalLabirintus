@@ -66,6 +66,8 @@
                       <Component id="Bt_tovabb" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="Bt_vissza" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="Bt_csata" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="SCPa_iranyok" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
@@ -128,6 +130,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="Bt_tovabb" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="Bt_vissza" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="Bt_csata" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="SCPa_oldal" min="-2" pref="396" max="-2" attributes="0"/>
@@ -340,6 +343,11 @@
     <Component class="javax.swing.JLabel" name="La_oldalszam">
       <Properties>
         <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="Bt_csata">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Csata"/>
       </Properties>
     </Component>
   </SubComponents>

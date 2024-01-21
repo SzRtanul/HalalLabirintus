@@ -28,6 +28,7 @@ public class HL {
     }
 
     private static void broadcast() {
+        deleteZeroElements();
         listeners.forEach(x -> x.actionValueChanged());
     }
     // </editor-fold>
@@ -49,16 +50,17 @@ public class HL {
     */
     //private static List<>
     private static int helyszinValtas = 0;
-    private final static Stack<Integer> helyszinElozmeny = new Stack<Integer>();
-    private final static List<InventoryItem> eszkoztar = new ArrayList<InventoryItem>();
+    private final static Stack<Integer> kockak = new Stack<>(); 
+    private final static Stack<Integer> helyszinElozmeny = new Stack<>();
     
+    private final static List<InventoryItem> eszkoztar = new ArrayList<>();
     
-    private final static List<Helyszin> helyszinek = new ArrayList<Helyszin>();
-    private final static List<Utvonal> utvonalak = new ArrayList<Utvonal>();
+    private final static List<Helyszin> helyszinek = new ArrayList<>();
+    private final static List<Utvonal> utvonalak = new ArrayList<>();
     
-    private final static List<Targy> targyak = new ArrayList<Targy>();
-    private final static List<TargyAr> targyarak = new ArrayList<TargyAr>();
-    private final static List<Vege> vege = new ArrayList<Vege>();
+    private final static List<Targy> targyak = new ArrayList<>();
+    private final static List<TargyAr> targyarak = new ArrayList<>();
+    private final static List<Vege> vege = new ArrayList<>();
     
     // GUI visszaad
     
@@ -72,7 +74,7 @@ public class HL {
         eletero = setKockaDobas() + setKockaDobas() + 12;
         szerencse = setKockaDobas() + 6;
         
-        aktualisHelyszin = 326;
+        aktualisHelyszin = 1;
         
         if(reupload){
             fileUploads();
@@ -137,9 +139,39 @@ public class HL {
         return false;
     }
     
-    private static boolean setHelyszin(int val){
-        aktualisHelyszin = val;
-        broadcast();
+    public static List<Integer> getKockak(){
+        
+        
+        return new ArrayList<Integer>();
+    }
+    
+    private static boolean setHelyszin(int oldalszam){
+        boolean both = false;
+        boolean fizet = true;
+        
+        
+        for (TargyAr item2 : targyarak.stream().filter(x->x.getHelyszinID() == oldalszam).toList()){
+            if(eszkoztar.stream().filter(x -> x.getTargyID() == item2.getTargyID()).count() == 0){
+                eszkoztar.add(new InventoryItem(item2.getTargyID()));
+            }
+            if(eszkoztar.stream().filter(x -> x.getTargyID() == item2.getTargyID()).findFirst().get().getMenny() + item2.getAr() < 0){
+                    fizet = false;
+            }
+        }
+        
+        Helyszin hly = helyszinek.stream().filter(x -> x.getId() == oldalszam).findFirst().get();
+        if(fizet){
+            for (InventoryItem item : eszkoztar){
+                for (TargyAr item2 : targyarak.stream().filter(x->x.getHelyszinID() == oldalszam).toList()){
+                    eszkoztar.stream().filter(x -> x.equals(item)).findFirst().get().ad(item2.getAr());
+                    targyarak.stream().filter(x -> x.equals(item2)).findFirst().get().vesz();
+                }
+            }
+            both = true;
+            aktualisHelyszin = oldalszam;
+            broadcast();
+        }
+        
         return true;
     }
     
@@ -169,7 +201,7 @@ public class HL {
     
     public static List<String> uploadList(String filename){
         File f = new File(filename);
-        List<String> items = new ArrayList<String>();
+        List<String> items = new ArrayList<>();
         try(Scanner sc = new Scanner(f, "utf-8")){
             for(int i=0; sc.hasNextLine(); i++){
                 items.add(sc.nextLine());
@@ -215,7 +247,7 @@ public class HL {
         }
         
          i = 0;
-        filename = "Targy.txt";
+        filename = "targy.txt";
         for(String item : uploadList(filename)){
             try {
                 String[] sp = item.split(";");

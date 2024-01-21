@@ -122,6 +122,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         La_eszkoztar = new javax.swing.JLabel();
         Bt_vissza = new javax.swing.JButton();
         La_oldalszam = new javax.swing.JLabel();
+        Bt_csata = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -235,6 +236,8 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
 
         La_oldalszam.setText("0");
 
+        Bt_csata.setText("Csata");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -267,7 +270,9 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Bt_tovabb)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Bt_vissza))
+                        .addComponent(Bt_vissza)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Bt_csata))
                     .addComponent(SCPa_iranyok, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -316,7 +321,8 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Bt_tovabb)
-                            .addComponent(Bt_vissza)))
+                            .addComponent(Bt_vissza)
+                            .addComponent(Bt_csata)))
                     .addComponent(SCPa_oldal, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -397,6 +403,10 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                         setKiemelSzamok(HL.getHelyszin().getSzoveg()) +
                     "</p>")
         );
+        La_eszkoztar.setText(
+                    htmlMainTree(getEszkoztarToString(HL.getEszkoztar()))
+        );
+        
         
         valaszt = new ButtonGroup();
         int db = 0;
@@ -436,6 +446,14 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         return s;
     }
     
+    private String getEszkoztarToString(List<InventoryItem> l){
+        String s = "";
+        for(InventoryItem item : l){
+            s += "<p>"+item.getTargyID() + ": " + item.getMenny()+"</p>";
+        }
+        
+        return s;
+    }
 
     @Override
     public void kockadobasBegin() {
@@ -469,6 +487,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
     }  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Bt_csata;
     private javax.swing.JButton Bt_dob;
     private javax.swing.JButton Bt_tovabb;
     private javax.swing.JButton Bt_vissza;
