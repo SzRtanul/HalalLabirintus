@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javafx.application.Platform;
@@ -142,7 +143,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         La_oldal.setToolTipText("");
         La_oldal.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         La_oldal.setAutoscrolls(true);
-        La_oldal.setMaximumSize(new java.awt.Dimension(454, 1080));
+        La_oldal.setMaximumSize(new java.awt.Dimension(454, 9999999));
         La_oldal.setMinimumSize(new java.awt.Dimension(454, 96));
         La_oldal.setOpaque(true);
         La_oldal.setPreferredSize(new java.awt.Dimension(454, 1000));
@@ -245,8 +246,8 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SCPa_oldal, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SCPa_oldal, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -407,6 +408,8 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                     htmlMainTree(getEszkoztarToString(HL.getEszkoztar()))
         );
         
+        //La_oldal.setPreferredSize(new Dimension(SCPa_oldal.getWidth()-130, La_oldal.));
+        La_oldal.updateUI();
         
         valaszt = new ButtonGroup();
         int db = 0;
@@ -431,8 +434,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         s = s.replaceAll("10 000", "<span style=\"color: FFD700;\"> " + "10 000" + " </span>");
         for (var item : Alakit.Modszer.getNumbersFromString(szoveg)){
             System.out.println(item);
-            if(s.split(item+"-r").length > 1 || s.split(item+"r").length > 1){
-                
+            if(s.split(item+"-r").length > 1 || s.split(item+"r").length > 1){    
                 s = s.replaceAll(" "+item+"-r", "<span style=\"color: yellow;\"> "+item+"</span>-r");
                 s = s.replaceAll(item+"r", "<span style=\"color: yellow;\" >"+item+"</span>-r");
             }

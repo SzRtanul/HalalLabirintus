@@ -73,7 +73,7 @@ public class HL {
         ugyesseg = setKockaDobas() +6;
         eletero = setKockaDobas() + setKockaDobas() + 12;
         szerencse = setKockaDobas() + 6;
-        
+
         aktualisHelyszin = 1;
         
         if(reupload){
