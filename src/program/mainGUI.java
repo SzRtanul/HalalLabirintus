@@ -124,6 +124,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         Bt_vissza = new javax.swing.JButton();
         La_oldalszam = new javax.swing.JLabel();
         Bt_csata = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -239,6 +240,8 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
 
         Bt_csata.setText("Csata");
 
+        jLabel4.setText("Aktuális helyszín:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -263,10 +266,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(La_ero)
                             .addComponent(La_szerencse)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(La_ugyesseg)
-                                .addGap(66, 66, 66)
-                                .addComponent(La_oldalszam))))
+                            .addComponent(La_ugyesseg)))
                     .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Bt_tovabb)
@@ -276,10 +276,16 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                         .addComponent(Bt_csata))
                     .addComponent(SCPa_iranyok, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(La_eszkoztar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Bt_dob, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(La_eszkoztar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(La_oldalszam)
+                            .addComponent(Bt_dob, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
@@ -299,8 +305,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(La_ugyesseg)
-                            .addComponent(La_oldalszam))
+                            .addComponent(La_ugyesseg))
                         .addGap(1, 1, 1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(La_szerencse)
@@ -310,7 +315,10 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                             .addComponent(La_ero)
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(La_eszkoztar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(La_eszkoztar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(La_oldalszam)
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -451,7 +459,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
     private String getEszkoztarToString(List<InventoryItem> l){
         String s = "";
         for(InventoryItem item : l){
-            s += "<p>"+item.getTargyID() + ": " + item.getMenny()+"</p>";
+            s += "<p>"+ item.getMenny() + "x" + HL.getTargyNev(item.getTargyID()).toUpperCase()+"</p>";
         }
         
         return s;
@@ -508,6 +516,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;

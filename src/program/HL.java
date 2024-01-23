@@ -199,6 +199,10 @@ public class HL {
         return eszkoztar.stream().toList();
     }
     
+    public static String getTargyNev(int id){
+        return targyak.stream().filter(x -> x.getID() == id).findFirst().get().getNev();
+    }
+    
     public static List<String> uploadList(String filename){
         File f = new File(filename);
         List<String> items = new ArrayList<>();
@@ -251,14 +255,14 @@ public class HL {
         for(String item : uploadList(filename)){
             try {
                 String[] sp = item.split(";");
-                targyak.add(new Targy(Integer.parseInt(sp[0]), sp[1])); 
+                targyak.add(new Targy(Integer.parseInt(sp[0]), sp[1]));
             } catch (Exception e) {
                 System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
             }
             i++;
         }
         
-         i = 0;
+        i = 0;
         filename = "targyar.txt";
         for(String item : uploadList(filename)){
             try {
