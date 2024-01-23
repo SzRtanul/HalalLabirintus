@@ -37,6 +37,16 @@ public class HarcGUI extends javax.swing.JFrame implements EI.CCListener{
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                formKeyReleased(evt);
+            }
+        });
 
         jLabel2.setText("Kocka (Modál?)");
 
@@ -105,10 +115,21 @@ public class HarcGUI extends javax.swing.JFrame implements EI.CCListener{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // <editor-fold defaultstate="collapsed" desc="Input Műveletek">
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formKeyReleased
+    // </editor-fold>
+       
+    // <editor-fold defaultstate="collapsed" desc="Main">
     /**
      * @param args the command line arguments
      */
@@ -153,32 +174,37 @@ public class HarcGUI extends javax.swing.JFrame implements EI.CCListener{
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 
-   
-
+   // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Event Frissítés">
     @Override
     public void actionValueChanged() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void kockadobasBegin() {
+    public void actionKockadobasKezd() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void kockadobasEnd() {
+    public void actionKockadobasVege() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-}
-/*
-class Initiater<T> {
-    private List<HelloListener> listeners = new ArrayList<HelloListener>();
 
-    public void addListener(HelloListener toAdd) {
-        listeners.add(toAdd);
+    @Override
+    public void actionCsataKezdodik() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    public void removeListener(HelloListener toRemove) {
-        listeners.remove(toRemove);
+
+    @Override
+    public void actionCsataVege() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-}*/
+
+    @Override
+    public void actionJatekVege() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    // </editor-fold>
+}

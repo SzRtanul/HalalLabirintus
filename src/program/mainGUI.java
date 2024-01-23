@@ -34,20 +34,15 @@ import javax.swing.JRadioButton;
 import objektumok.*;
 
 
-public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
-    
-    //Jatek j = new Jatek();
+public final class MainGUI extends javax.swing.JFrame implements EI.CCListener {
     private ButtonGroup valaszt;
 
     public MainGUI() {
         initComponents();
-        SCPa_oldal.getVerticalScrollBar().setUnitIncrement(4);
-        HL.addListener(this);
-        //La_oldal.setText("<html>Egy versenyre nevezel, aminek a lényege, hogy át kell kelni a halállabirintuson. A labirintusban tárgyakat találhatsz és szörnyekkel kell harcoljál.</html>");    
-        HL.Restart(true);
-        La_oldal.setToolTipText(null);
+        initComponentsOverride();
+        // <editor-fold defaultstate="collapsed" desc="Videó">
         Platform.startup(new Runnable() {
-            @Override
+            //@Override
             public void run() {
                 //Path currentRelativePath = Paths.get("stoh.mp3");
                 //File f = new File(currentRelativePath.toAbsolutePath().toString());
@@ -71,7 +66,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                     mediaPlayer.setAutoPlay(false);
                     //mediaPlayer.getStatus().equals(Status.PLAYING);
                     mediaPlayer.setOnEndOfMedia(new Runnable() {
-                        @Override
+                        //@Override
                         public void run() {
                             mediaPlayer.seek(Duration.ZERO);
                             mediaPlayer.play();
@@ -90,6 +85,14 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                 }   
             }            
         });
+        // </editor-fold>
+    }
+    
+    public void initComponentsOverride(){
+        SCPa_oldal.getVerticalScrollBar().setUnitIncrement(4);
+        HL.addListener(this);
+        HL.Restart(true);
+        La_oldal.setToolTipText(null);
     }
 
     /**
@@ -124,7 +127,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         Bt_vissza = new javax.swing.JButton();
         La_oldalszam = new javax.swing.JLabel();
         Bt_csata = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel444 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -240,7 +243,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
 
         Bt_csata.setText("Csata");
 
-        jLabel4.setText("Aktuális helyszín:");
+        jLabel444.setText("Aktuális helyszín:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -281,7 +284,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(La_eszkoztar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4)))
+                                .addComponent(jLabel444)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(La_oldalszam)
@@ -318,7 +321,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(La_eszkoztar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(La_oldalszam)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel444))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -338,7 +341,8 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    // <editor-fold defaultstate="collapsed" desc="Input Műveletek">
     private void Bt_tovabbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bt_tovabbActionPerformed
         JRadioButton selectedRadioButton = getSelectedRadioButton(valaszt);
         if(selectedRadioButton != null){
@@ -358,13 +362,15 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
     }
     
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        HL.removeListener(this);
+       // HL.removeListener(this);
     }//GEN-LAST:event_formWindowClosed
 
     private void Bt_visszaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bt_visszaActionPerformed
         HL.vissza(false);
     }//GEN-LAST:event_Bt_visszaActionPerformed
-
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Main">
     /**
      * @param args the command line arguments
      */
@@ -391,7 +397,7 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
             java.util.logging.Logger.getLogger(MainGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -400,8 +406,92 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
             }
         });
     }
+    // </editor-fold>
     
-     @Override
+    // <editor-fold defaultstate="collapsed" desc="HTML && String">
+    
+    public String setKiemelSzamok(String szoveg){
+        String s = szoveg;
+        s = s.replaceAll("10 000", "<span style=\"color: FFD700;\"> " + "10 000" + " </span>");
+        for (var item : Alakit.Modszer.getNumbersFromString(szoveg)){
+            System.out.println(item);
+            if(s.split(item+"-r").length > 1 || s.split(item+"r").length > 1){    
+                s = s.replaceAll(" "+item+"-r", "<span style=\"color: yellow;\"> "+item+"</span>-r");
+                s = s.replaceAll(item+"r", "<span style=\"color: yellow;\" >"+item+"</span>-r");
+            }
+            else if(s.split(item+" kg").length > 1){
+                 s = s.replaceAll(" "+item+" kg", "<span style=\"color: 2114C3;\" > "+item+"</span> kg");
+            }
+            else if(s.split(" " + item + " ").length > 1){
+                s =  s.replaceAll(" " + item+ " ", "<span style=\"color: blue;\"> "+item+" </span>");
+            }
+        }
+        return s;
+    }
+    
+    private String getEszkoztarToString(List<InventoryItem> l){
+        String s = "";
+        for(InventoryItem item : l){
+            String itemName = HL.getTargyElnevezesek().stream().filter(x -> x.getID() == item.getTargyID()).findFirst().get().getNev(); 
+            s += "<p>"+ getCamelCase(itemName) + ": " + item.getMenny()+"</p>";
+        }
+        return s;
+    }
+    // n=3
+    // ossz = 6
+    // i = 3
+    
+    public String getCamelCase(String itemName){
+        return itemName.substring(0,1).toUpperCase() + itemName.substring(1).toLowerCase();
+    }
+    
+    public String htmlMainTree(String szoveg){
+        return String.format(
+                "<html>"
+                    + "<head>"
+                        + "<meta charset=\"UTF-8\">"
+                    + "</head>"
+                    + "<body>"
+                        + "%s"
+                    + "</body>"
+                + "</html>", szoveg);
+    }
+    // </editor-fold>
+    
+    //@Override
+    protected void finalize() {  
+       // HL.removeListener(this);
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Bt_csata;
+    private javax.swing.JButton Bt_dob;
+    private javax.swing.JButton Bt_tovabb;
+    private javax.swing.JButton Bt_vissza;
+    private javax.swing.JLabel La_ero;
+    private javax.swing.JLabel La_eszkoztar;
+    private javax.swing.JLabel La_oldal;
+    private javax.swing.JLabel La_oldalszam;
+    private javax.swing.JLabel La_szerencse;
+    private javax.swing.JLabel La_ugyesseg;
+    private javax.swing.JPanel Pa_irany;
+    private javax.swing.JPanel Pa_video;
+    private javax.swing.JScrollPane SCPa_iranyok;
+    private javax.swing.JScrollPane SCPa_oldal;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel444;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JRadioButton jRadioButton1;
+    // End of variables declaration//GEN-END:variables
+
+    // <editor-fold defaultstate="collapsed" desc="Event Frissítés">
+    //@Override
     public void actionValueChanged() {
         SCPa_oldal.getVerticalScrollBar().setValue(0);
         La_oldalszam.setText(HL.getHelyszin().getId()+"");
@@ -436,90 +526,31 @@ public class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         La_ero.setText(HL.getEro()+"");
         La_szerencse.setText(HL.getSzerencse()+"");
     }
-
-    public String setKiemelSzamok(String szoveg){
-        String s = szoveg;
-        s = s.replaceAll("10 000", "<span style=\"color: FFD700;\"> " + "10 000" + " </span>");
-        for (var item : Alakit.Modszer.getNumbersFromString(szoveg)){
-            System.out.println(item);
-            if(s.split(item+"-r").length > 1 || s.split(item+"r").length > 1){    
-                s = s.replaceAll(" "+item+"-r", "<span style=\"color: yellow;\"> "+item+"</span>-r");
-                s = s.replaceAll(item+"r", "<span style=\"color: yellow;\" >"+item+"</span>-r");
-            }
-            else if(s.split(item+" kg").length > 1){
-                 s = s.replaceAll(" "+item+" kg", "<span style=\"color: 2114C3;\" > "+item+"</span> kg");
-            }
-            else if(s.split(" " + item + " ").length > 1){
-                s =  s.replaceAll(" " + item+ " ", "<span style=\"color: blue;\"> "+item+" </span>");
-            }
-        }
-        return s;
-    }
     
-    private String getEszkoztarToString(List<InventoryItem> l){
-        String s = "";
-        for(InventoryItem item : l){
-            s += "<p>"+ item.getMenny() + "x" + HL.getTargyNev(item.getTargyID()).toUpperCase()+"</p>";
-        }
-        
-        return s;
-    }
-
-    @Override
-    public void kockadobasBegin() {
+    //@Override
+    public void actionKockadobasKezd() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public void kockadobasEnd() {
+    //@Override
+    public void actionKockadobasVege() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    // n=3
-    // ossz = 6
-    // i = 3
-    
-    public String htmlMainTree(String szoveg){
-        return String.format(
-                "<html>"
-                    + "<head>"
-                        + "<meta charset=\"UTF-8\">"
-                    + "</head>"
-                    + "<body>"
-                        + "%s"
-                    + "</body>"
-                + "</html>", szoveg);
+
+    //@Override
+    public void actionCsataKezdodik() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    //@Override
+    public void actionCsataVege() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    //@Override
+    public void actionJatekVege() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
-    
-    @Override
-    protected void finalize() {  
-            HL.removeListener(this);
-    }  
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Bt_csata;
-    private javax.swing.JButton Bt_dob;
-    private javax.swing.JButton Bt_tovabb;
-    private javax.swing.JButton Bt_vissza;
-    private javax.swing.JLabel La_ero;
-    private javax.swing.JLabel La_eszkoztar;
-    private javax.swing.JLabel La_oldal;
-    private javax.swing.JLabel La_oldalszam;
-    private javax.swing.JLabel La_szerencse;
-    private javax.swing.JLabel La_ugyesseg;
-    private javax.swing.JPanel Pa_irany;
-    private javax.swing.JPanel Pa_video;
-    private javax.swing.JScrollPane SCPa_iranyok;
-    private javax.swing.JScrollPane SCPa_oldal;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    // End of variables declaration//GEN-END:variables
+    // </editor-fold>
 }

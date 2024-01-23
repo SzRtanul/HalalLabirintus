@@ -5,7 +5,6 @@
 package justtests;
 
 import objektumok.*;
-import program.HL;
 
 /**
  *
