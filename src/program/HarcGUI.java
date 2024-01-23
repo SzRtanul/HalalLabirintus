@@ -11,7 +11,7 @@ import java.util.*;
  *
  * @author SzabóRoland(SZOFT_20
  */
-public class HarcGUI extends javax.swing.JFrame implements EI.CCListener{
+public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
 
     /**
      * Creates new form HarcGUI

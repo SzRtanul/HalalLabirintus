@@ -34,7 +34,7 @@ import javax.swing.JRadioButton;
 import objektumok.*;
 
 
-public final class MainGUI extends javax.swing.JFrame implements EI.CCListener {
+public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
     private ButtonGroup valaszt;
 
     public MainGUI() {
@@ -42,7 +42,7 @@ public final class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         initComponentsOverride();
         // <editor-fold defaultstate="collapsed" desc="Videó">
         Platform.startup(new Runnable() {
-            //@Override
+            @Override
             public void run() {
                 //Path currentRelativePath = Paths.get("stoh.mp3");
                 //File f = new File(currentRelativePath.toAbsolutePath().toString());
@@ -66,7 +66,7 @@ public final class MainGUI extends javax.swing.JFrame implements EI.CCListener {
                     mediaPlayer.setAutoPlay(false);
                     //mediaPlayer.getStatus().equals(Status.PLAYING);
                     mediaPlayer.setOnEndOfMedia(new Runnable() {
-                        //@Override
+                        @Override
                         public void run() {
                             mediaPlayer.seek(Duration.ZERO);
                             mediaPlayer.play();
@@ -362,7 +362,7 @@ public final class MainGUI extends javax.swing.JFrame implements EI.CCListener {
     }
     
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-       // HL.removeListener(this);
+       HL.removeListener(this);
     }//GEN-LAST:event_formWindowClosed
 
     private void Bt_visszaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bt_visszaActionPerformed
@@ -396,6 +396,9 @@ public final class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         
 
@@ -458,9 +461,9 @@ public final class MainGUI extends javax.swing.JFrame implements EI.CCListener {
     }
     // </editor-fold>
     
-    //@Override
+    @Override
     protected void finalize() {  
-       // HL.removeListener(this);
+       HL.removeListener(this);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -491,7 +494,7 @@ public final class MainGUI extends javax.swing.JFrame implements EI.CCListener {
     // End of variables declaration//GEN-END:variables
 
     // <editor-fold defaultstate="collapsed" desc="Event Frissítés">
-    //@Override
+    @Override
     public void actionValueChanged() {
         SCPa_oldal.getVerticalScrollBar().setValue(0);
         La_oldalszam.setText(HL.getHelyszin().getId()+"");
@@ -527,27 +530,27 @@ public final class MainGUI extends javax.swing.JFrame implements EI.CCListener {
         La_szerencse.setText(HL.getSzerencse()+"");
     }
     
-    //@Override
+    @Override
     public void actionKockadobasKezd() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    //@Override
+    @Override
     public void actionKockadobasVege() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    //@Override
+    @Override
     public void actionCsataKezdodik() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    //@Override
+    @Override
     public void actionCsataVege() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    //@Override
+    @Override
     public void actionJatekVege() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

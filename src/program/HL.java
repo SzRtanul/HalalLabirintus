@@ -17,13 +17,13 @@ import objektumok.*;
 public class HL {
     
     // <editor-fold defaultstate="collapsed" desc="Event implmentation">
-    private static Set<EI.CCListener> listeners = new HashSet();
+    private static Set<EI.BBListener> listeners = new HashSet();
     
-    public static void addListener(EI.CCListener listener) {
+    public static void addListener(EI.BBListener listener) {
         listeners.add(listener);
     }
     
-    public static void removeListener(EI.CCListener listener) {
+    public static void removeListener(EI.BBListener listener) {
         listeners.remove(listener);
     }
 

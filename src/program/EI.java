@@ -9,7 +9,7 @@ package program;
  * @author SzabóRoland(SZOFT_20
  */
 public class EI { //EventInterfaces
-    public static interface CCListener{
+    public static interface BBListener{
         public void actionValueChanged();
         public void actionKockadobasKezd();
         public void actionKockadobasVege();
