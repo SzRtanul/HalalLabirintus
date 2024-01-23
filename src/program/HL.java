@@ -53,12 +53,15 @@ public class HL {
     private final static Stack<Integer> kockak = new Stack<>(); 
     private final static Stack<Integer> helyszinElozmeny = new Stack<>();
     
-    private final static List<InventoryItem> eszkoztar = new ArrayList<>();
+    // <editor-fold defaultstate="collapsed" desc="Szótár">
+    private final static List<Targy> targyak = new ArrayList<>();
+    // Ellenseg // private final static List<Ellenseg> targyak = new ArrayList<>();
+    // </editor-fold>
     
+    
+    private final static List<InventoryItem> eszkoztar = new ArrayList<>();
     private final static List<Helyszin> helyszinek = new ArrayList<>();
     private final static List<Utvonal> utvonalak = new ArrayList<>();
-    
-    private final static List<Targy> targyak = new ArrayList<>();
     private final static List<TargyAr> targyarak = new ArrayList<>();
     private final static List<Vege> vege = new ArrayList<>();
     
@@ -87,7 +90,7 @@ public class HL {
         eszkoztar.removeAll(eszkoztar.stream().filter(x -> x.getMenny() == 0).toList());
         return false;
     }
-    
+    // <editor-fold defaultstate="collapsed" desc="Input">
     private static boolean Harc(){
         // Teremtmény
         //tamadoEro[soronJatekos] = setKockaDobas() + setKockaDobas(); // Támadóerő
@@ -134,18 +137,7 @@ public class HL {
         return both;
     }
     
-    public static boolean dob(){
-        
-        return false;
-    }
-    
-    public static List<Integer> getKockak(){
-        
-        
-        return new ArrayList<Integer>();
-    }
-    
-    private static boolean setHelyszin(int oldalszam){
+     private static boolean setHelyszin(int oldalszam){
         boolean both = false;
         boolean fizet = true;
         
@@ -173,6 +165,27 @@ public class HL {
         }
         
         return true;
+    } 
+     
+     public static boolean dob(){
+        
+        return false;
+    }
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Output">
+     
+     // <editor-fold defaultstate="collapsed" desc="TargyLista">
+     
+     public static List<Targy> getTargyElnevezesek(){
+        return targyak;
+    }
+     
+     // </editor-fold>
+    public static List<Integer> getKockak(){
+        
+        
+        return new ArrayList<Integer>();
     }
     
     public static List<Utvonal> getLehetosegek(){
@@ -198,7 +211,9 @@ public class HL {
     public static List<InventoryItem> getEszkoztar(){
         return eszkoztar.stream().toList();
     }
+    // </editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="Loading">
     public static List<String> uploadList(String filename){
         File f = new File(filename);
         List<String> items = new ArrayList<>();
@@ -275,4 +290,5 @@ public class HL {
             i++;
         }
     }
+     // </editor-fold>
 }
