@@ -55,12 +55,13 @@ public class HL {
     
     // <editor-fold defaultstate="collapsed" desc="Szótár">
     private final static List<Targy> targyak = new ArrayList<>();
+    private final static List<Ellenseg> ellensegek = new ArrayList<>();
+    private final static List<Helyszin> helyszinek = new ArrayList<>();
     // Ellenseg // private final static List<Ellenseg> targyak = new ArrayList<>();
     // </editor-fold>
     
     
     private final static List<InventoryItem> eszkoztar = new ArrayList<>();
-    private final static List<Helyszin> helyszinek = new ArrayList<>();
     private final static List<Utvonal> utvonalak = new ArrayList<>();
     private final static List<TargyAr> targyarak = new ArrayList<>();
     private final static List<Vege> vege = new ArrayList<>();
@@ -236,13 +237,14 @@ public class HL {
     
      public static void fileUploads(){
         eszkoztar.clear();
-        helyszinek.clear();
-        utvonalak.clear();
-        targyak.clear();
-        targyarak.clear();
+        
+        
+        
+        
         
         int i = 0;
-        String filename = "helyszinek.txt";
+        String filename = "szotar\\helyszinek.txt";
+        helyszinek.clear();
         for(String item : uploadList(filename)){
             try {
                 String[] sp = item.split("\\|");
@@ -254,7 +256,8 @@ public class HL {
         }
         
         i = 0;
-        filename = "utvonalak.txt";
+        filename = "muvelet\\utvonalak.txt";
+        utvonalak.clear();
         for(String item : uploadList(filename)){
             try {
                 String[] sp = item.split(";");
@@ -266,7 +269,8 @@ public class HL {
         }
         
          i = 0;
-        filename = "targy.txt";
+        filename = "szotar\\targy.txt";
+        targyak.clear();
         for(String item : uploadList(filename)){
             try {
                 String[] sp = item.split(";");
@@ -278,7 +282,8 @@ public class HL {
         }
         
         i = 0;
-        filename = "targyar.txt";
+        filename = "muvelet\\targyar.txt";
+        targyarak.clear();
         for(String item : uploadList(filename)){
             try {
                 String[] sp = item.split(";");
@@ -293,6 +298,45 @@ public class HL {
             }
             i++;
         }
+        
+        i = 0;
+        filename = "muvelet\\vege.txt";
+        vege.clear();
+        for(String item : uploadList(filename)){
+            try {
+                String[] sp = item.split(";");
+                vege.add(new Vege(Integer.parseInt(sp[0]), sp[1].equals("1"))); 
+            } catch (Exception e) {
+                System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
+            }
+            i++;
+        }
+        
+       /* i = 0;
+        filename = "muvelet\\csatak.txt";
+        csatak.clear();
+        for(String item : uploadList(filename)){
+            try {
+                String[] sp = item.split(";");
+                csatak.add(new Csata(Integer.parseInt(sp[0]), Integer.parseInt(sp[1]))); 
+            } catch (Exception e) {
+                System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
+            }
+            i++;
+        }
+        
+        i = 0;
+        filename = "szotar\\ellenseg.txt";
+        ellensegek.clear();
+        for(String item : uploadList(filename)){
+            try {
+                String[] sp = item.split(";");
+                ellensegek.add(new Ellenseg(Integer.parseInt(sp[0]), sp[1])); 
+            } catch (Exception e) {
+                System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
+            }
+            i++;
+        }*/
     }
      // </editor-fold>
 }
