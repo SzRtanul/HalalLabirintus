@@ -9,9 +9,19 @@ package objektumok;
  * @author SzabóRoland(SZOFT_20
  */
 public class Ellenseg {
+    private int id;
+    private String nev;
+       
+    public Ellenseg(int id, String nev){
+        this.id = id;
+        this.nev = nev;
+    }
     
+    public int getID(){
+        return id;
+    }
     
-    public Ellenseg(){
-        
+    public String getNev(){
+        return nev;
     }
 }

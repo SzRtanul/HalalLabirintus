@@ -57,13 +57,13 @@ public class HL {
     private final static List<Targy> targyak = new ArrayList<>();
     private final static List<Ellenseg> ellensegek = new ArrayList<>();
     private final static List<Helyszin> helyszinek = new ArrayList<>();
-    // Ellenseg // private final static List<Ellenseg> targyak = new ArrayList<>();
     // </editor-fold>
     
     
     private final static List<InventoryItem> eszkoztar = new ArrayList<>();
     private final static List<Utvonal> utvonalak = new ArrayList<>();
     private final static List<TargyAr> targyarak = new ArrayList<>();
+    private final static List<Csata> csatak = new ArrayList<>();
     private final static List<Vege> vege = new ArrayList<>();
     
     // GUI visszaad
@@ -312,13 +312,20 @@ public class HL {
             i++;
         }
         
-       /* i = 0;
+        i = 0;
         filename = "muvelet\\csatak.txt";
         csatak.clear();
         for(String item : uploadList(filename)){
             try {
                 String[] sp = item.split(";");
-                csatak.add(new Csata(Integer.parseInt(sp[0]), Integer.parseInt(sp[1]))); 
+                csatak.add(new Csata(
+                        Integer.parseInt(sp[0]), 
+                        Integer.parseInt(sp[1]), 
+                        Integer.parseInt(sp[1]), 
+                        Integer.parseInt(sp[2]), 
+                        Integer.parseInt(sp[3]), 
+                        Integer.parseInt(sp[4]))
+                ); 
             } catch (Exception e) {
                 System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
             }
@@ -336,7 +343,7 @@ public class HL {
                 System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
             }
             i++;
-        }*/
+        }
     }
      // </editor-fold>
 }
