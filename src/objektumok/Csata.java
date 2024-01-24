@@ -24,7 +24,8 @@ public class Csata {
         this.menny = menny;
     }
     
-    public boolean harcol(){
+    public boolean ut(){
+        // Karakter üt
         return false;
     }
     

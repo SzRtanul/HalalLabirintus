@@ -64,6 +64,7 @@ public class HL {
     private final static List<Utvonal> utvonalak = new ArrayList<>();
     private final static List<TargyAr> targyarak = new ArrayList<>();
     private final static List<Csata> csatak = new ArrayList<>();
+    private final static List<TudasAnyag> tudasanyag = new ArrayList<>();
     private final static List<Vege> vege = new ArrayList<>();
     
     // GUI visszaad
@@ -339,6 +340,22 @@ public class HL {
             try {
                 String[] sp = item.split(";");
                 ellensegek.add(new Ellenseg(Integer.parseInt(sp[0]), sp[1])); 
+            } catch (Exception e) {
+                System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
+            }
+            i++;
+        }
+        
+        i = 0;
+        filename = "muvelet\\tudasanyag.txt";
+        tudasanyag.clear();
+        for(String item : uploadList(filename)){
+            try {
+                String[] sp = item.split(";");
+                tudasanyag.add(new TudasAnyag(
+                        Integer.parseInt(sp[0]), 
+                        Integer.parseInt(sp[1]))
+                ); 
             } catch (Exception e) {
                 System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
             }
