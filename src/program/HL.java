@@ -42,6 +42,7 @@ public class HL {
     //Játék lépései:
     private static byte lepesek = 3; // {megy, tárgyár, mehet?, csata}
     private static int aktualisHelyszin = 1;
+    private static int soronJatekos = 0;
     /*
     private static java.util.List<String> targyak;
     private static java.util.List<String> ekkovek;
@@ -80,6 +81,7 @@ public class HL {
         szerencse = setKockaDobas() + 6;
 
         aktualisHelyszin = 1;
+        soronJatekos = 0;
         
         if(reupload){
             fileUploads();
@@ -93,14 +95,28 @@ public class HL {
         return false;
     }
     // <editor-fold defaultstate="collapsed" desc="Input">
-    private static boolean tamad(int index){
+    private static boolean tamad(int index, boolean szerencs){
         // Teremtmény
         //tamadoEro[soronJatekos] = setKockaDobas() + setKockaDobas(); // Támadóerő
         
         List<Csata> idCsata = getEllenfelek();
+        szerencse -= szerencs ? 1 : 0;
         if(kockak.stream().count() == 2){
-            //ellenfelUt(); //Játlkost ütik
-            //idCsata.stream(). //Játékos választ
+            if(soronJatekos == 0){
+                csatak.get(csatak.indexOf(idCsata.get(index)))
+                        .ut(eletero, ugyesseg + kockak.pop() + kockak.pop(), true); 
+                soronJatekos++;
+                //Játékos választ
+            }
+            else{
+                ellenfelUt(idCsata.get(soronJatekos)); //Játlkost ütik
+                soronJatekos++;
+                if(soronJatekos == idCsata.stream().count()){
+                    soronJatekos = 0;
+                }
+            }
+            
+            
             
         }
         

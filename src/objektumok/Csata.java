@@ -24,8 +24,12 @@ public class Csata {
         this.menny = menny;
     }
     
-    public boolean ut(){
+    public boolean ut(int karEletero, int karUgyesseg, boolean karSzerencse){
         // Karakter üt
+        return false;
+    }
+    
+    public boolean Szerencse(){
         return false;
     }
     
