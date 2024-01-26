@@ -93,13 +93,28 @@ public class HL {
         return false;
     }
     // <editor-fold defaultstate="collapsed" desc="Input">
-    private static boolean Harc(){
+    private static boolean tamad(int index){
         // Teremtmény
         //tamadoEro[soronJatekos] = setKockaDobas() + setKockaDobas(); // Támadóerő
-        broadcast();
-        return false;
         
+        List<Csata> idCsata = getEllenfelek();
+        if(kockak.stream().count() == 2){
+            //ellenfelUt(); //Játlkost ütik
+            //idCsata.stream(). //Játékos választ
+            
+        }
+        
+        broadcast();
+        return false;   
     }
+    
+    public static boolean ellenfelUt(Csata ellenfel){
+        
+        eletero = eletero;
+        ugyesseg = ugyesseg;
+        return false;
+    }
+    
     public static boolean lapoz(){
         boolean both = false;
         helyszinElozmeny.push(aktualisHelyszin);
@@ -216,6 +231,10 @@ public class HL {
     
     public static List<InventoryItem> getEszkoztar(){
         return eszkoztar.stream().toList();
+    }
+    
+    public static List<Csata> getEllenfelek(){
+        return csatak.stream().filter(x -> x.getHelyszinID() == aktualisHelyszin).toList();
     }
     // </editor-fold>
     
