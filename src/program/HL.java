@@ -201,7 +201,13 @@ public class HL {
     } 
      
      public static boolean dob(){
-        
+        int gen = 0;
+        int rotate = Integer.parseInt(Math.floor((Math.random()*6)+1)+"");
+        for (int i = 0; i < rotate; i++) {
+             gen = Integer.parseInt(Math.floor((Math.random()*6)+1)+"");
+             listeners.forEach(x -> x.actionKockadobasKezd(/*gen*/));
+        }
+        kockak.push(gen);
         return false;
     }
     // </editor-fold>
