@@ -8,6 +8,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.Math;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import objektumok.*;
 
 /**
@@ -201,14 +204,33 @@ public class HL {
     } 
      
      public static boolean dob(){
-        int gen = 0;
-        int rotate = Integer.parseInt(Math.floor((Math.random()*6)+1)+"");
+        Runnable r = new Runnable() {
+          public void run() {
+            kockak.clear();
+            int[] gen = new int[2];
+            int rotate = (int)Math.floor((Math.random()*63)+37);
+        listeners.forEach(x -> x.actionKockadobasKezd(gen.length));
         for (int i = 0; i < rotate; i++) {
-             gen = Integer.parseInt(Math.floor((Math.random()*6)+1)+"");
-             listeners.forEach(x -> x.actionKockadobasKezd(/*gen*/));
+            for(int j = 0; j < gen.length; j++){
+                gen[j] = (int)Math.floor((Math.random()*6)+1);
+            }
+            try {
+                TimeUnit.MILLISECONDS.sleep(25);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(HL.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            final int[] localRitard = gen;
+            listeners.forEach(listener -> listener.actionKockadobasFolyamatban(localRitard));
         }
-        kockak.push(gen);
-        return false;
+        for(int item : gen){
+            kockak.push(item);
+        }
+          }
+        };
+        Thread asd = new Thread(r);
+        asd.start();
+        
+        return true;
     }
     // </editor-fold>
     
