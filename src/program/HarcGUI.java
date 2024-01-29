@@ -34,7 +34,6 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
         jLabel3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -63,8 +62,6 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
 
         jLabel5.setText("<html>\n<head>\n    <meta charset=\"UTF-8\">\n</head>\n<body>\n     <li>Életerő: </li>\n     <li>Ügyesség: </li>\n     <li>Szreencse: </li>\n</body>\n</html>");
 
-        jLabel2.setText("<html>\n<head>\n    <meta charset=\"UTF-8\">\n</head>\n<body>\n    <ul>\n        <li>Életerő: </li>\n        <li>Ügyesség: </li>\n    </ul>\n</body>\n</html>");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -83,15 +80,9 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel1)
-                                        .addGap(109, 109, 109))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(116, 116, 116)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 78, Short.MAX_VALUE)))))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addGap(109, 109, 109)))))
                 .addGap(49, 49, 49))
         );
         layout.setVerticalGroup(
@@ -103,10 +94,7 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addGap(70, 70, 70)
@@ -171,7 +159,6 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
