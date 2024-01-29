@@ -162,11 +162,6 @@ public class HL {
         if(!helyszinElozmeny.isEmpty()){
             helyszinValtas += elore ? 1 : -1;
             aktualisHelyszin = helyszinElozmeny.pop();
-            for(int item : helyszinElozmeny){
-                System.out.println(item);
-            }
-            System.out.println(helyszinValtas);
-            System.out.println(aktualisHelyszin);
             setHelyszin(aktualisHelyszin);
             both = true;
         }

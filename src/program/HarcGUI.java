@@ -4,9 +4,13 @@
  */
 package program;
 
+import java.awt.Component;
+import java.awt.Image;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.*;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 /**
  *
  * @author SzabóRoland(SZOFT_20
@@ -18,6 +22,7 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
      */
     public HarcGUI() {
         initComponents();
+        HL.addListener(this);
     }
     
     /**
@@ -35,6 +40,8 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
         jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        Bt_dob = new javax.swing.JButton();
+        Pa_kockak = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -65,6 +72,30 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
 
         jLabel2.setText("<html>\n<head>\n    <meta charset=\"UTF-8\">\n</head>\n<body>\n    <ul>\n        <li>Életerő: </li>\n        <li>Ügyesség: </li>\n    </ul>\n</body>\n</html>");
 
+        Bt_dob.setBackground(new java.awt.Color(102, 255, 51));
+        Bt_dob.setText("dob");
+        Bt_dob.setOpaque(true);
+        Bt_dob.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Bt_dobActionPerformed(evt);
+            }
+        });
+
+        Pa_kockak.setBackground(new java.awt.Color(153, 51, 0));
+        Pa_kockak.setBorder(new javax.swing.border.MatteBorder(null));
+        Pa_kockak.setAutoscrolls(true);
+
+        javax.swing.GroupLayout Pa_kockakLayout = new javax.swing.GroupLayout(Pa_kockak);
+        Pa_kockak.setLayout(Pa_kockakLayout);
+        Pa_kockakLayout.setHorizontalGroup(
+            Pa_kockakLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
+        );
+        Pa_kockakLayout.setVerticalGroup(
+            Pa_kockakLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 61, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,8 +122,14 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(116, 116, 116)
                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 78, Short.MAX_VALUE)))))))
+                                        .addGap(0, 187, Short.MAX_VALUE)))))))
                 .addGap(49, 49, 49))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(Pa_kockak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Bt_dob, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,9 +144,13 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addGap(70, 70, 70)
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Pa_kockak, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Bt_dob, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addGap(17, 17, 17))
         );
@@ -129,6 +170,10 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_formKeyReleased
+
+    private void Bt_dobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bt_dobActionPerformed
+        HL.dob();
+    }//GEN-LAST:event_Bt_dobActionPerformed
     // </editor-fold>
        
     // <editor-fold defaultstate="collapsed" desc="Main">
@@ -168,6 +213,8 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Bt_dob;
+    private javax.swing.JPanel Pa_kockak;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -186,7 +233,19 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
 
     @Override
     public void actionKockadobasKezd(int kockaszam) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Pa_kockak.removeAll();
+        for(int i = 0; i < kockaszam; i++){
+            JLabel kocka = new JLabel();
+            Pa_kockak.add(kocka);
+            kocka.setBounds((i*42) + 17, (Pa_kockak.getHeight()/2) - 17, 35, 35);
+            kocka.setIcon(new ImageIcon(
+                    new ImageIcon("kepek\\kockakepek\\kocka" + 1 + ".PNG")
+                            .getImage().getScaledInstance(
+                                    kocka.getWidth(), 
+                                    kocka.getHeight(), 
+                                    Image.SCALE_DEFAULT)
+            ));
+        }
     }
 
     @Override
@@ -211,7 +270,35 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
     
     @Override
     public void actionKockadobasFolyamatban(int[] gen) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<JLabel> kockak = new ArrayList<>();
+        for(Component item : Pa_kockak.getComponents()){
+            if(item instanceof JLabel) kockak.add((JLabel)item);
+        }
+        //Pa_kockak.removeAll();
+        for(int i = 0; i < gen.length; i++){
+            try {
+               kockak.get(i).setIcon(
+                        new ImageIcon(
+                                new ImageIcon("kepek\\kockakepek\\kocka" + gen[i] + ".PNG")
+                                        .getImage().getScaledInstance(
+                                                kockak.get(i).getWidth(), 
+                                                kockak.get(i).getHeight(), 
+                                                Image.SCALE_DEFAULT)
+                        ));
+            /*    JLabel kocka = new JLabel();
+            Pa_kockak.add(kocka);
+            kocka.setBounds((i*62) + 7, 2, 55, 55);
+            kocka.setIcon(new ImageIcon(
+                    new ImageIcon("kepek\\kockakepek\\kocka" + gen[i] + ".PNG")
+                            .getImage().getScaledInstance(
+                                    kocka.getWidth(), 
+                                    kocka.getHeight(), 
+                                    Image.SCALE_DEFAULT)
+            ));*/
+            } catch (Exception ex) {
+                System.out.println("Hoppá! Valami nem stimmel!");
+            }
+        }
     }
     // </editor-fold>  
 }
