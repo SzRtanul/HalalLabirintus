@@ -590,16 +590,6 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
                                                 kockak.get(i).getHeight(), 
                                                 Image.SCALE_DEFAULT)
                         ));
-            /*    JLabel kocka = new JLabel();
-            Pa_kockak.add(kocka);
-            kocka.setBounds((i*62) + 7, 2, 55, 55);
-            kocka.setIcon(new ImageIcon(
-                    new ImageIcon("kepek\\kockakepek\\kocka" + gen[i] + ".PNG")
-                            .getImage().getScaledInstance(
-                                    kocka.getWidth(), 
-                                    kocka.getHeight(), 
-                                    Image.SCALE_DEFAULT)
-            ));*/
             } catch (Exception ex) {
                 System.out.println("Hoppá! Valami nem stimmel!");
             }

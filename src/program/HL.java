@@ -275,6 +275,10 @@ public class HL {
     public static List<Csata> getEllenfelek(){
         return csatak.stream().filter(x -> x.getHelyszinID() == aktualisHelyszin).toList();
     }
+    
+    public static String getEllenfelNev(int id){
+        return ellensegek.stream().filter(x -> x.getID() == id).findFirst().get().getNev();
+    }
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Loading">

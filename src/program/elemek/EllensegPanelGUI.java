@@ -4,20 +4,78 @@
  */
 package program.elemek;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
+
+
 /**
  *
  * @author SzabóRoland(SZF_2023
  */
 public class EllensegPanelGUI extends javax.swing.JPanel {
-
+    private int szornyEletero;
+    private int szornyUgyesseg;
+    
     /**
      * Creates new form EllensegPanelGUI
+     * @param CHk_id
+     * @param szornyNev
+     * @param szornyEletero
+     * @param szornyUgyesseg
      */
-    public EllensegPanelGUI() {
+    public EllensegPanelGUI(int CHk_id, String szornyNev, int szornyEletero, int szornyUgyesseg) {
         initComponents();
-        RBt_ellensegNeve.setActionCommand("EH");
+        initKinezet();
+        RBt_ellensegNeve.setActionCommand(CHk_id+"");
+        RBt_ellensegNeve.setText("<html>" + szornyNev + "</html>");
+        this.szornyEletero = szornyEletero;
+        this.szornyUgyesseg = szornyUgyesseg;
+        Pr_eletero.setMaximum(szornyEletero);
+        Pr_ugyesseg.setMaximum(szornyUgyesseg);
+        frissit();
     }
-
+    
+    private void initKinezet(){
+        setSize(getPreferredSize().width, getPreferredSize().height);
+        La_eleteroIcon.setText("");
+        La_eleteroIcon.setSize(16, 16);
+        La_eleteroIcon.setIcon(
+                        new ImageIcon(
+                                new ImageIcon("kepek\\kepek\\eletero.png")
+                                        .getImage().getScaledInstance(
+                                                La_eleteroIcon.getWidth(), 
+                                                La_eleteroIcon.getHeight(), 
+                                                Image.SCALE_DEFAULT)
+                        ));
+        La_ugyessegIcon.setText("");
+        La_ugyessegIcon.setSize(16, 16);
+        La_ugyessegIcon.setIcon(
+                        new ImageIcon(
+                                new ImageIcon("kepek\\kepek\\ugyesseg.png")
+                                        .getImage().getScaledInstance(
+                                                La_ugyessegIcon.getWidth(), 
+                                                La_ugyessegIcon.getHeight(), 
+                                                Image.SCALE_DEFAULT)
+                        ));
+    }
+    
+    private void frissit(){
+        La_eletero.setText("<html>"+szornyEletero+"</html>");
+        La_ugyesseg.setText("<html>"+szornyUgyesseg+"</html>");
+        Pr_eletero.setValue(szornyEletero);
+        Pr_ugyesseg.setValue(szornyUgyesseg);
+    }
+    
+    private void setEletero(int eletero){
+        szornyEletero = eletero;
+        frissit();
+    }
+    
+    private void setUgyesseg(int ugyesseg){
+        szornyUgyesseg = ugyesseg;
+        frissit();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,84 +89,133 @@ public class EllensegPanelGUI extends javax.swing.JPanel {
         RBt_ellensegNeve = new javax.swing.JRadioButton();
         La_eleteroIcon = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        La_eletero = new javax.swing.JLabel();
         La_ugyessegIcon = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        jProgressBar3 = new javax.swing.JProgressBar();
+        La_ugyesseg = new javax.swing.JLabel();
+        Pr_eletero = new javax.swing.JProgressBar();
+        Pr_ugyesseg = new javax.swing.JProgressBar();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
 
-        RBt_ellensegNeve.setText("Hólihorgas Szörnykikoptató vakondszerű lény");
+        setBackground(new java.awt.Color(0, 153, 153));
+        setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        setForeground(new java.awt.Color(255, 255, 255));
+
+        RBt_ellensegNeve.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        RBt_ellensegNeve.setForeground(null);
+        RBt_ellensegNeve.setText("<html>Hólihorgas Szörnykikoptató vakondszerű lila lényecske</html>");
         RBt_ellensegNeve.setActionCommand("1");
+        RBt_ellensegNeve.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
+        La_eleteroIcon.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        La_eleteroIcon.setForeground(null);
         La_eleteroIcon.setText("E");
         La_eleteroIcon.setPreferredSize(new java.awt.Dimension(16, 16));
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 51, 51));
         jLabel1.setText("Életerő: ");
 
-        jLabel2.setText("100");
+        La_eletero.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        La_eletero.setForeground(new java.awt.Color(255, 238, 0));
+        La_eletero.setText("100");
 
+        La_ugyessegIcon.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        La_ugyessegIcon.setForeground(null);
         La_ugyessegIcon.setText("U");
         La_ugyessegIcon.setPreferredSize(new java.awt.Dimension(16, 16));
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 255));
         jLabel3.setText("Ügyesség: ");
 
-        jLabel4.setText("100");
+        La_ugyesseg.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        La_ugyesseg.setForeground(new java.awt.Color(255, 225, 0));
+        La_ugyesseg.setText("100");
+
+        Pr_eletero.setForeground(null);
+        Pr_eletero.setMaximumSize(new java.awt.Dimension(32767, 2));
+        Pr_eletero.setMinimumSize(new java.awt.Dimension(10, 2));
+        Pr_eletero.setPreferredSize(new java.awt.Dimension(146, 2));
+
+        Pr_ugyesseg.setForeground(null);
+        Pr_ugyesseg.setMinimumSize(new java.awt.Dimension(10, 2));
+        Pr_ugyesseg.setPreferredSize(new java.awt.Dimension(146, 2));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(RBt_ellensegNeve)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(La_eleteroIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(La_ugyessegIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(La_eleteroIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(La_eletero)
+                    .addComponent(La_ugyesseg))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(La_ugyessegIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jProgressBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Pr_ugyesseg, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(Pr_eletero, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(RBt_ellensegNeve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(RBt_ellensegNeve)
-                    .addComponent(jProgressBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(La_eleteroIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(La_ugyessegIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(RBt_ellensegNeve, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                .addComponent(La_eleteroIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1))
+                            .addGap(1, 1, 1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                .addComponent(La_ugyessegIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(3, 3, 3)
+                            .addComponent(filler1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(La_eletero)
+                            .addComponent(Pr_eletero, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(1, 1, 1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(La_ugyesseg)
+                            .addComponent(Pr_ugyesseg, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel La_eletero;
     private javax.swing.JLabel La_eleteroIcon;
+    private javax.swing.JLabel La_ugyesseg;
     private javax.swing.JLabel La_ugyessegIcon;
+    private javax.swing.JProgressBar Pr_eletero;
+    private javax.swing.JProgressBar Pr_ugyesseg;
     private javax.swing.JRadioButton RBt_ellensegNeve;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JProgressBar jProgressBar2;
-    private javax.swing.JProgressBar jProgressBar3;
     // End of variables declaration//GEN-END:variables
 }
