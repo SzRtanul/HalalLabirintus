@@ -9,10 +9,10 @@ package objektumok;
  * @author SzabóRoland(SZOFT_20
  */
 public class TargyAr {
-    private int helyszinID;
-    private int targyID;
+    private final int helyszinID;
+    private final int targyID;
     private int ar;
-    private boolean egyszerFizetendo;
+    private final boolean egyszerFizetendo;
     
     public TargyAr(int helyszinID, int targyID, int ar, boolean egyszerFizetendo){
         this.helyszinID = helyszinID;

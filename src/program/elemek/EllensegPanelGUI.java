@@ -102,13 +102,11 @@ public class EllensegPanelGUI extends javax.swing.JPanel {
         setForeground(new java.awt.Color(255, 255, 255));
 
         RBt_ellensegNeve.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-        RBt_ellensegNeve.setForeground(null);
         RBt_ellensegNeve.setText("<html>Hólihorgas Szörnykikoptató vakondszerű lila lényecske</html>");
         RBt_ellensegNeve.setActionCommand("1");
         RBt_ellensegNeve.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         La_eleteroIcon.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-        La_eleteroIcon.setForeground(null);
         La_eleteroIcon.setText("E");
         La_eleteroIcon.setPreferredSize(new java.awt.Dimension(16, 16));
 
@@ -121,7 +119,6 @@ public class EllensegPanelGUI extends javax.swing.JPanel {
         La_eletero.setText("100");
 
         La_ugyessegIcon.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-        La_ugyessegIcon.setForeground(null);
         La_ugyessegIcon.setText("U");
         La_ugyessegIcon.setPreferredSize(new java.awt.Dimension(16, 16));
 
@@ -133,12 +130,10 @@ public class EllensegPanelGUI extends javax.swing.JPanel {
         La_ugyesseg.setForeground(new java.awt.Color(255, 225, 0));
         La_ugyesseg.setText("100");
 
-        Pr_eletero.setForeground(null);
         Pr_eletero.setMaximumSize(new java.awt.Dimension(32767, 2));
         Pr_eletero.setMinimumSize(new java.awt.Dimension(10, 2));
         Pr_eletero.setPreferredSize(new java.awt.Dimension(146, 2));
 
-        Pr_ugyesseg.setForeground(null);
         Pr_ugyesseg.setMinimumSize(new java.awt.Dimension(10, 2));
         Pr_ugyesseg.setPreferredSize(new java.awt.Dimension(146, 2));
 
@@ -212,7 +207,7 @@ public class EllensegPanelGUI extends javax.swing.JPanel {
     private javax.swing.JLabel La_ugyessegIcon;
     private javax.swing.JProgressBar Pr_eletero;
     private javax.swing.JProgressBar Pr_ugyesseg;
-    private javax.swing.JRadioButton RBt_ellensegNeve;
+    public javax.swing.JRadioButton RBt_ellensegNeve;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

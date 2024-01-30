@@ -31,6 +31,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
@@ -105,6 +106,7 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
         HL.addListener(this);
         HL.Restart(true);
         La_oldal.setToolTipText(null);
+        this.getContentPane().setBackground(new java.awt.Color(100, 242, 0));
     }
 
     /**
@@ -142,6 +144,7 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 102, 0));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -257,6 +260,11 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
         La_oldalszam.setText("0");
 
         Bt_csata.setText("Csata");
+        Bt_csata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Bt_csataActionPerformed(evt);
+            }
+        });
 
         jLabel444.setText("Aktuális helyszín:");
 
@@ -394,6 +402,11 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
     private void Bt_dobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bt_dobActionPerformed
        HL.dob();
     }//GEN-LAST:event_Bt_dobActionPerformed
+
+    private void Bt_csataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bt_csataActionPerformed
+        HarcGUI hc = new HarcGUI();
+        hc.setVisible(true);
+    }//GEN-LAST:event_Bt_csataActionPerformed
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Main">
