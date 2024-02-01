@@ -5,16 +5,22 @@
 package program;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
@@ -25,13 +31,19 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.ButtonGroup;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import objektumok.*;
+
 
 
 public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
@@ -40,6 +52,7 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
     public MainGUI() {
         initComponents();
         initComponentsOverride();
+        //La_cim.setIcon(new Icon(null));
         // <editor-fold defaultstate="collapsed" desc="Videó">
         Platform.startup(new Runnable() {
             @Override
@@ -93,6 +106,7 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
         HL.addListener(this);
         HL.Restart(true);
         La_oldal.setToolTipText(null);
+        this.getContentPane().setBackground(new java.awt.Color(100, 242, 0));
     }
 
     /**
@@ -108,17 +122,16 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
         SCPa_oldal = new javax.swing.JScrollPane();
         La_oldal = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
         Bt_tovabb = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        Pa_kockak = new javax.swing.JPanel();
         La_ugyesseg = new javax.swing.JLabel();
         La_szerencse = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         La_ero = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        La_cim = new javax.swing.JLabel();
         Pa_video = new javax.swing.JPanel();
         Bt_dob = new javax.swing.JButton();
         SCPa_iranyok = new javax.swing.JScrollPane();
@@ -128,8 +141,10 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
         La_oldalszam = new javax.swing.JLabel();
         Bt_csata = new javax.swing.JButton();
         jLabel444 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 102, 0));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -156,8 +171,6 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
 
         jRadioButton1.setText("jRadioButton1");
 
-        jLabel1.setText("Ügyesség:");
-
         Bt_tovabb.setText("Tovább");
         Bt_tovabb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,18 +180,18 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
 
         jLabel2.setText("Mit lépsz?");
 
-        jPanel2.setBackground(new java.awt.Color(200, 200, 200));
-        jPanel2.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.setAutoscrolls(true);
+        Pa_kockak.setBackground(new java.awt.Color(153, 51, 0));
+        Pa_kockak.setBorder(new javax.swing.border.MatteBorder(null));
+        Pa_kockak.setAutoscrolls(true);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout Pa_kockakLayout = new javax.swing.GroupLayout(Pa_kockak);
+        Pa_kockak.setLayout(Pa_kockakLayout);
+        Pa_kockakLayout.setHorizontalGroup(
+            Pa_kockakLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 200, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        Pa_kockakLayout.setVerticalGroup(
+            Pa_kockakLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 61, Short.MAX_VALUE)
         );
 
@@ -194,9 +207,9 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
 
         jButton1.setText("Be/Ki");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel3.setText("Halállabirintus");
-        jLabel3.setToolTipText("");
+        La_cim.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        La_cim.setText("Halállabirintus");
+        La_cim.setToolTipText("");
 
         javax.swing.GroupLayout Pa_videoLayout = new javax.swing.GroupLayout(Pa_video);
         Pa_video.setLayout(Pa_videoLayout);
@@ -212,6 +225,11 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
         Bt_dob.setBackground(new java.awt.Color(102, 255, 51));
         Bt_dob.setText("dob");
         Bt_dob.setOpaque(true);
+        Bt_dob.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Bt_dobActionPerformed(evt);
+            }
+        });
 
         SCPa_iranyok.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -242,8 +260,15 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
         La_oldalszam.setText("0");
 
         Bt_csata.setText("Csata");
+        Bt_csata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Bt_csataActionPerformed(evt);
+            }
+        });
 
         jLabel444.setText("Aktuális helyszín:");
+
+        jLabel1.setText("Ügyesség:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -252,8 +277,12 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SCPa_oldal, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(La_cim, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SCPa_oldal, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel444)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(La_oldalszam)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -262,9 +291,9 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(La_ero)
@@ -280,15 +309,10 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
                     .addComponent(SCPa_iranyok, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(La_eszkoztar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel444)))
+                            .addComponent(Pa_kockak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(La_eszkoztar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(La_oldalszam)
-                            .addComponent(Bt_dob, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(Bt_dob, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
@@ -298,18 +322,27 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(La_cim, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(Pa_video, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(La_ugyesseg)
+                            .addGap(1, 1, 1))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(La_oldalszam)
+                                .addComponent(jLabel444))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(3, 3, 3)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(La_ugyesseg))
-                        .addGap(1, 1, 1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(La_szerencse)
                             .addComponent(jLabel5))
@@ -318,13 +351,10 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
                             .addComponent(La_ero)
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(La_eszkoztar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(La_oldalszam)
-                            .addComponent(jLabel444))
+                        .addComponent(La_eszkoztar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Pa_kockak, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Bt_dob, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
@@ -335,8 +365,8 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
                             .addComponent(Bt_tovabb)
                             .addComponent(Bt_vissza)
                             .addComponent(Bt_csata)))
-                    .addComponent(SCPa_oldal, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(SCPa_oldal, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -368,6 +398,15 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
     private void Bt_visszaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bt_visszaActionPerformed
         HL.vissza(false);
     }//GEN-LAST:event_Bt_visszaActionPerformed
+
+    private void Bt_dobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bt_dobActionPerformed
+       HL.dob();
+    }//GEN-LAST:event_Bt_dobActionPerformed
+
+    private void Bt_csataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bt_csataActionPerformed
+        HarcGUI hc = new HarcGUI();
+        hc.setVisible(true);
+    }//GEN-LAST:event_Bt_csataActionPerformed
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Main">
@@ -471,6 +510,7 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
     private javax.swing.JButton Bt_dob;
     private javax.swing.JButton Bt_tovabb;
     private javax.swing.JButton Bt_vissza;
+    private javax.swing.JLabel La_cim;
     private javax.swing.JLabel La_ero;
     private javax.swing.JLabel La_eszkoztar;
     private javax.swing.JLabel La_oldal;
@@ -478,6 +518,7 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
     private javax.swing.JLabel La_szerencse;
     private javax.swing.JLabel La_ugyesseg;
     private javax.swing.JPanel Pa_irany;
+    private javax.swing.JPanel Pa_kockak;
     private javax.swing.JPanel Pa_video;
     private javax.swing.JScrollPane SCPa_iranyok;
     private javax.swing.JScrollPane SCPa_oldal;
@@ -485,11 +526,9 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel444;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRadioButton1;
     // End of variables declaration//GEN-END:variables
 
@@ -531,10 +570,45 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
     }
     
     @Override
-    public void actionKockadobasKezd() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void actionKockadobasKezd(int kockaszam) {
+        Pa_kockak.removeAll();
+        for(int i = 0; i < kockaszam; i++){
+            JLabel kocka = new JLabel();
+            Pa_kockak.add(kocka);
+            kocka.setBounds((i*42) + 17, (Pa_kockak.getHeight()/2) - 17, 35, 35);
+            kocka.setIcon(new ImageIcon(
+                    new ImageIcon("kepek\\kockakepek\\kocka" + 1 + ".PNG")
+                            .getImage().getScaledInstance(
+                                    kocka.getWidth(), 
+                                    kocka.getHeight(), 
+                                    Image.SCALE_DEFAULT)
+            ));
+        }
     }
 
+    @Override
+    public void actionKockadobasFolyamatban(int[] gen) {
+        List<JLabel> kockak = new ArrayList<>();
+        for(Component item : Pa_kockak.getComponents()){
+            if(item instanceof JLabel) kockak.add((JLabel)item);
+        }
+        //Pa_kockak.removeAll();
+        for(int i = 0; i < gen.length; i++){
+            try {
+               kockak.get(i).setIcon(
+                        new ImageIcon(
+                                new ImageIcon("kepek\\kockakepek\\kocka" + gen[i] + ".PNG")
+                                        .getImage().getScaledInstance(
+                                                kockak.get(i).getWidth(), 
+                                                kockak.get(i).getHeight(), 
+                                                Image.SCALE_DEFAULT)
+                        ));
+            } catch (Exception ex) {
+                System.out.println("Hoppá! Valami nem stimmel!");
+            }
+        }
+    }
+    
     @Override
     public void actionKockadobasVege() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

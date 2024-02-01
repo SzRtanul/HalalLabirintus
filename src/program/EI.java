@@ -11,10 +11,14 @@ package program;
 public class EI { //EventInterfaces
     public static interface BBListener{
         public void actionValueChanged();
-        public void actionKockadobasKezd();
+        
+        public void actionKockadobasKezd(int kockaszam);
+        public void actionKockadobasFolyamatban(int[] gen);
         public void actionKockadobasVege();
+        
         public void actionCsataKezdodik();
         public void actionCsataVege();
+        
         public void actionJatekVege();
     }
     

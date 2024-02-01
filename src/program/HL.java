@@ -8,6 +8,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.Math;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import objektumok.*;
 
 /**
@@ -42,6 +45,7 @@ public class HL {
     //Játék lépései:
     private static byte lepesek = 3; // {megy, tárgyár, mehet?, csata}
     private static int aktualisHelyszin = 1;
+    private static int soronJatekos = 0;
     /*
     private static java.util.List<String> targyak;
     private static java.util.List<String> ekkovek;
@@ -55,14 +59,16 @@ public class HL {
     
     // <editor-fold defaultstate="collapsed" desc="Szótár">
     private final static List<Targy> targyak = new ArrayList<>();
-    // Ellenseg // private final static List<Ellenseg> targyak = new ArrayList<>();
+    private final static List<Ellenseg> ellensegek = new ArrayList<>();
+    private final static List<Helyszin> helyszinek = new ArrayList<>();
     // </editor-fold>
     
     
     private final static List<InventoryItem> eszkoztar = new ArrayList<>();
-    private final static List<Helyszin> helyszinek = new ArrayList<>();
     private final static List<Utvonal> utvonalak = new ArrayList<>();
     private final static List<TargyAr> targyarak = new ArrayList<>();
+    private final static List<Csata> csatak = new ArrayList<>();
+    private final static List<TudasAnyag> tudasanyag = new ArrayList<>();
     private final static List<Vege> vege = new ArrayList<>();
     
     // GUI visszaad
@@ -78,6 +84,7 @@ public class HL {
         szerencse = setKockaDobas() + 6;
 
         aktualisHelyszin = 1;
+        soronJatekos = 0;
         
         if(reupload){
             fileUploads();
@@ -91,13 +98,42 @@ public class HL {
         return false;
     }
     // <editor-fold defaultstate="collapsed" desc="Input">
-    private static boolean Harc(){
+    private static boolean tamad(int index, boolean szerencs){
         // Teremtmény
         //tamadoEro[soronJatekos] = setKockaDobas() + setKockaDobas(); // Támadóerő
-        broadcast();
-        return false;
         
+        List<Csata> idCsata = getEllenfelek();
+        szerencse -= szerencs ? 1 : 0;
+        if(kockak.stream().count() == 2){
+            if(soronJatekos == 0){
+                csatak.get(csatak.indexOf(idCsata.get(index)))
+                        .ut(eletero, ugyesseg + kockak.pop() + kockak.pop(), true); 
+                soronJatekos++;
+                //Játékos választ
+            }
+            else{
+                ellenfelUt(idCsata.get(soronJatekos)); //Játlkost ütik
+                soronJatekos++;
+                if(soronJatekos == idCsata.stream().count()){
+                    soronJatekos = 0;
+                }
+            }
+            
+            
+            
+        }
+        
+        broadcast();
+        return false;   
     }
+    
+    public static boolean ellenfelUt(Csata ellenfel){
+        
+        eletero = eletero;
+        ugyesseg = ugyesseg;
+        return false;
+    }
+    
     public static boolean lapoz(){
         boolean both = false;
         helyszinElozmeny.push(aktualisHelyszin);
@@ -126,11 +162,6 @@ public class HL {
         if(!helyszinElozmeny.isEmpty()){
             helyszinValtas += elore ? 1 : -1;
             aktualisHelyszin = helyszinElozmeny.pop();
-            for(int item : helyszinElozmeny){
-                System.out.println(item);
-            }
-            System.out.println(helyszinValtas);
-            System.out.println(aktualisHelyszin);
             setHelyszin(aktualisHelyszin);
             both = true;
         }
@@ -168,8 +199,33 @@ public class HL {
     } 
      
      public static boolean dob(){
+        Runnable r = new Runnable() {
+          public void run() {
+            kockak.clear();
+            int[] gen = new int[2];
+            int rotate = (int)Math.floor((Math.random()*63)+37);
+        listeners.forEach(x -> x.actionKockadobasKezd(gen.length));
+        for (int i = 0; i < rotate; i++) {
+            for(int j = 0; j < gen.length; j++){
+                gen[j] = (int)Math.floor((Math.random()*6)+1);
+            }
+            try {
+                TimeUnit.MILLISECONDS.sleep(25);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(HL.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            final int[] localRitard = gen;
+            listeners.forEach(listener -> listener.actionKockadobasFolyamatban(localRitard));
+        }
+        for(int item : gen){
+            kockak.push(item);
+        }
+          }
+        };
+        Thread asd = new Thread(r);
+        asd.start();
         
-        return false;
+        return true;
     }
     // </editor-fold>
     
@@ -215,6 +271,14 @@ public class HL {
     public static List<InventoryItem> getEszkoztar(){
         return eszkoztar.stream().toList();
     }
+    
+    public static List<Csata> getEllenfelek(){
+        return csatak.stream().filter(x -> x.getHelyszinID() == aktualisHelyszin).toList();
+    }
+    
+    public static String getEllenfelNev(int id){
+        return ellensegek.stream().filter(x -> x.getID() == id).findFirst().get().getNev();
+    }
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Loading">
@@ -236,13 +300,14 @@ public class HL {
     
      public static void fileUploads(){
         eszkoztar.clear();
-        helyszinek.clear();
-        utvonalak.clear();
-        targyak.clear();
-        targyarak.clear();
+        
+        
+        
+        
         
         int i = 0;
-        String filename = "helyszinek.txt";
+        String filename = "szotar\\helyszinek.txt";
+        helyszinek.clear();
         for(String item : uploadList(filename)){
             try {
                 String[] sp = item.split("\\|");
@@ -254,7 +319,8 @@ public class HL {
         }
         
         i = 0;
-        filename = "utvonalak.txt";
+        filename = "muvelet\\utvonalak.txt";
+        utvonalak.clear();
         for(String item : uploadList(filename)){
             try {
                 String[] sp = item.split(";");
@@ -266,7 +332,8 @@ public class HL {
         }
         
          i = 0;
-        filename = "targy.txt";
+        filename = "szotar\\targy.txt";
+        targyak.clear();
         for(String item : uploadList(filename)){
             try {
                 String[] sp = item.split(";");
@@ -278,7 +345,8 @@ public class HL {
         }
         
         i = 0;
-        filename = "targyar.txt";
+        filename = "muvelet\\targyar.txt";
+        targyarak.clear();
         for(String item : uploadList(filename)){
             try {
                 String[] sp = item.split(";");
@@ -287,6 +355,68 @@ public class HL {
                         Integer.parseInt(sp[1]), 
                         Integer.parseInt(sp[2]), 
                         sp[3].equals("1"))
+                ); 
+            } catch (Exception e) {
+                System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
+            }
+            i++;
+        }
+        
+        i = 0;
+        filename = "muvelet\\vege.txt";
+        vege.clear();
+        for(String item : uploadList(filename)){
+            try {
+                String[] sp = item.split(";");
+                vege.add(new Vege(Integer.parseInt(sp[0]), sp[1].equals("1"))); 
+            } catch (Exception e) {
+                System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
+            }
+            i++;
+        }
+        
+        i = 0;
+        filename = "muvelet\\csatak.txt";
+        csatak.clear();
+        for(String item : uploadList(filename)){
+            try {
+                String[] sp = item.split(";");
+                csatak.add(new Csata(
+                        Integer.parseInt(sp[0]), 
+                        Integer.parseInt(sp[1]), 
+                        Integer.parseInt(sp[1]), 
+                        Integer.parseInt(sp[2]), 
+                        Integer.parseInt(sp[3]), 
+                        Integer.parseInt(sp[4]))
+                ); 
+            } catch (Exception e) {
+                System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
+            }
+            i++;
+        }
+        
+        i = 0;
+        filename = "szotar\\ellenseg.txt";
+        ellensegek.clear();
+        for(String item : uploadList(filename)){
+            try {
+                String[] sp = item.split(";");
+                ellensegek.add(new Ellenseg(Integer.parseInt(sp[0]), sp[1])); 
+            } catch (Exception e) {
+                System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
+            }
+            i++;
+        }
+        
+        i = 0;
+        filename = "muvelet\\tudasanyag.txt";
+        tudasanyag.clear();
+        for(String item : uploadList(filename)){
+            try {
+                String[] sp = item.split(";");
+                tudasanyag.add(new TudasAnyag(
+                        Integer.parseInt(sp[0]), 
+                        Integer.parseInt(sp[1]))
                 ); 
             } catch (Exception e) {
                 System.out.println(String.format("A %s fájl %d. sorával probléma akadt.", filename, i));
