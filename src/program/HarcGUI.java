@@ -6,11 +6,14 @@ package program;
 
 import java.awt.Component;
 import java.awt.Image;
+import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.*;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import objektumok.*;
 import program.elemek.*;
 /**
  *
@@ -54,6 +57,9 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -191,6 +197,10 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
     private void Bt_dobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bt_dobActionPerformed
         HL.dob();
     }//GEN-LAST:event_Bt_dobActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_formWindowClosing
     // </editor-fold>
        
     // <editor-fold defaultstate="collapsed" desc="Main">
@@ -246,7 +256,15 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
     // <editor-fold defaultstate="collapsed" desc="Event Frissítés">
     @Override
     public void actionValueChanged() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int db = 0;
+        int memory = db;
+        db = (int) HL.getEllenfelek().stream().count();
+        
+        if(db != memory){
+            for (Csata item : HL.getEllenfelek()){
+                
+            }
+        }
     }
 
     @Override

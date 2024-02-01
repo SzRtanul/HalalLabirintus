@@ -28,6 +28,7 @@ public class HL {
     
     public static void removeListener(EI.BBListener listener) {
         listeners.remove(listener);
+        broadcast();
     }
 
     private static void broadcast() {
