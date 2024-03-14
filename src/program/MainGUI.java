@@ -372,6 +372,7 @@ public final class MainGUI extends javax.swing.JFrame implements EI.BBListener{
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+
     // <editor-fold defaultstate="collapsed" desc="Input Műveletek">
     private void Bt_tovabbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bt_tovabbActionPerformed
         JRadioButton selectedRadioButton = getSelectedRadioButton(valaszt);
