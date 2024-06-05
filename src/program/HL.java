@@ -37,6 +37,15 @@ public class HL {
     }
     // </editor-fold>
     
+    enum Szinpadkepek{
+        FOMENU,
+        LABIRINTUS,
+        CSATA,
+        JATEKVEGE
+    }
+    
+    private static Szinpadkepek szinpadkep = Szinpadkepek.LABIRINTUS;
+    
     private static int ugyesseg = 0;
     private static int eletero = 0;
     private static int szerencse = 0;
@@ -53,7 +62,7 @@ public class HL {
     private static java.util.List<String> italok;
     private static java.util.List<String> etelkeszlet;
     */
-    //private static List<>
+    // private static List<>
     private static int helyszinValtas = 0;
     private final static Stack<Integer> kockak = new Stack<>(); 
     private final static Stack<Integer> helyszinElozmeny = new Stack<>();
@@ -63,7 +72,6 @@ public class HL {
     private final static List<Ellenseg> ellensegek = new ArrayList<>();
     private final static List<Helyszin> helyszinek = new ArrayList<>();
     // </editor-fold>
-    
     
     private final static List<InventoryItem> eszkoztar = new ArrayList<>();
     private final static List<Utvonal> utvonalak = new ArrayList<>();
@@ -243,10 +251,10 @@ public class HL {
     }
      
      // </editor-fold>
-    public static List<Integer> getKockak(){
-        
-        
-        return new ArrayList<Integer>();
+    
+    // <editor-fold defaultstate="collapsed" desc="Gets">
+    public static int[] getKockak(){
+        return new int[]{};
     }
     
     public static List<Utvonal> getLehetosegek(){
@@ -296,8 +304,7 @@ public class HL {
         }
         return items;
     }
-    
-    
+    // </editor-fold>
     
      public static void fileUploads(){
         eszkoztar.clear();

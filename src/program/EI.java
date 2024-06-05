@@ -16,10 +16,7 @@ public class EI { //EventInterfaces
         public void actionKockadobasFolyamatban(int[] gen);
         public void actionKockadobasVege();
         
-        public void actionCsataKezdodik();
-        public void actionCsataVege();
-        
-        public void actionJatekVege();
+        public void actionSzinpadkepValtozik();
     }
     
     public static interface FormCenter{

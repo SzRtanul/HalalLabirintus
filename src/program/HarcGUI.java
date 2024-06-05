@@ -288,21 +288,6 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
     public void actionKockadobasVege() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    @Override
-    public void actionCsataKezdodik() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void actionCsataVege() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void actionJatekVege() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
     @Override
     public void actionKockadobasFolyamatban(int[] gen) {
@@ -337,4 +322,9 @@ public class HarcGUI extends javax.swing.JFrame implements EI.BBListener{
         }
     }
     // </editor-fold>  
+
+    @Override
+    public void actionSzinpadkepValtozik() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
