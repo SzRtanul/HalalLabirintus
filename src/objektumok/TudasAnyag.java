@@ -9,8 +9,8 @@ package objektumok;
  * @author SzabóRoland(SZOFT_20
  */
 public class TudasAnyag {
-    int helyszinID, tudasHelyszinID;
-    
+    private int[] helyszinID, tudasHelyszinID;
+   /* 
     public TudasAnyag(int helyszinID, int tudasHelyszinID){
         this.helyszinID = helyszinID;
         this.tudasHelyszinID = tudasHelyszinID;
@@ -23,4 +23,5 @@ public class TudasAnyag {
     public int getTudasHelyszinID() {
         return tudasHelyszinID;
     }
+*/
 }

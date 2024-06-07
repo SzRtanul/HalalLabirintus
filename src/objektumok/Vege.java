@@ -9,10 +9,10 @@ package objektumok;
  * @author SzabóRoland(SZOFT_20
  */
 public class Vege {
-    private int helyszinID;
-    private boolean nyert;
+    private int[] helyszinID;
+    private boolean[] nyert;
     
-    public Vege(int helyszinID, boolean nyert){
+   /* public Vege(int helyszinID, boolean nyert){
         this.helyszinID = helyszinID;
         this.nyert = nyert;
     }
@@ -23,5 +23,5 @@ public class Vege {
     
     public boolean getNyert(){
         return nyert;
-    }
+    }*/
 }

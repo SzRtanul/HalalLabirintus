@@ -9,10 +9,10 @@ package objektumok;
  * @author SzabóRoland(SZOFT_20
  */
 public class Helyszin {
-    private int id;
-    private String szoveg;
+    private int[] id;
+    private String[] szoveg;
     
-    public Helyszin(int id, String szoveg){
+   /* public Helyszin(int id, String szoveg){
         this.id = id;
         this.szoveg=szoveg;
     }
@@ -23,5 +23,5 @@ public class Helyszin {
     
     public String getSzoveg(){
         return szoveg;
-    }
+    }*/
 }

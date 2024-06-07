@@ -9,10 +9,9 @@ package objektumok;
  * @author SzabóRoland(SZOFT_20
  */
 public class InventoryItem {
-    private int targyID;
-    private int menny;
+    private int[] targyID, menny;
     
-    public InventoryItem(int targyID){
+  /*  public InventoryItem(int targyID){
         this.menny = 0;
         this.targyID = targyID;
     }
@@ -32,5 +31,5 @@ public class InventoryItem {
             both = true;
         }
         return both;
-    }
+    }*/
 }

@@ -9,9 +9,9 @@ package objektumok;
  * @author SzabóRoland(SZOFT_20
  */
 public class Targy {
-    private int id;
-    private String nev;
-    
+    private int[] id;
+    private String[] nev;
+/*
     public Targy(int id, String nev){
         this.id = id;
         this.nev = nev;
@@ -24,4 +24,5 @@ public class Targy {
     public String getNev(){
         return nev;
     }
+*/
 }

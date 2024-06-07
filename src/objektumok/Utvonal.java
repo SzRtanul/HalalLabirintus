@@ -9,10 +9,9 @@ package objektumok;
  * @author SzabóRoland(SZOFT_20
  */
 public class Utvonal {
-    private int startID = -1;
-    private int celID = -1;
+    private int[] startID, celID;
     
-    public Utvonal(int start, int cel){
+   /* public Utvonal(int start, int cel){
         this.startID = start;
         this.celID = cel;
     }
@@ -22,5 +21,5 @@ public class Utvonal {
     }
     public int getCelID(){
         return celID;
-    }
+    }*/
 }

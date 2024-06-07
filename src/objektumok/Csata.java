@@ -9,13 +9,13 @@ package objektumok;
  * @author SzabóRoland(SZOFT_20
  */
 public class Csata {
-    int helyszinID, 
+    int[] helyszinID, 
             ellensegID, 
             eletero, 
             ugyesseg, 
             harcCsoportSzam, 
             menny;
-    public Csata(int helyszinID, int ellensegID, int eletero, int ugyesseg, int harcCsoportSzam, int menny){
+    /*public Csata(int helyszinID, int ellensegID, int eletero, int ugyesseg, int harcCsoportSzam, int menny){
         this.helyszinID = helyszinID;
         this.ellensegID = ellensegID;
         this.eletero = eletero;
@@ -55,5 +55,5 @@ public class Csata {
 
     public int getMenny() {
         return menny;
-    }
+    }*/
 }
