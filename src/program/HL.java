@@ -18,6 +18,13 @@ import objektumok.*;
  * @author SzabóRoland(SZOFT_20
  */
 public class HL {
+    class Member
+    {
+        public String firstName;
+        public String lastName;
+        public int    birthYear;
+     }
+    
     
     // <editor-fold defaultstate="collapsed" desc="Event implmentation">
     private static Set<EI.BBListener> listeners = new HashSet();
@@ -36,6 +43,7 @@ public class HL {
         if(listeners.stream().count() > 0) listeners.forEach(x -> x.actionValueChanged());
     }
     // </editor-fold>
+     
     
     enum Szinpadkepek{
         FOMENU,
@@ -106,6 +114,7 @@ public class HL {
         eszkoztar.removeAll(eszkoztar.stream().filter(x -> x.getMenny() == 0).toList());
         return false;
     }
+    
     // <editor-fold defaultstate="collapsed" desc="Input">
     private static boolean tamad(int index, boolean szerencs){
         // Teremtmény
@@ -242,27 +251,26 @@ public class HL {
      
      // <editor-fold defaultstate="collapsed" desc="TargyLista">
      
-    public static List<Targy> getTargyElnevezesek(){
-        return targyak;
+    public static String[] getTargyElnevezesek(){
+        return new String[]{};//targyak;
     }
      
     public static String getTargyNev(int id){
         return targyak.stream().filter(x -> x.getID() == id).findFirst().get().getNev();
     }
-     
-     // </editor-fold>
+    // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Gets">
     public static int[] getKockak(){
         return new int[]{};
     }
     
-    public static List<Utvonal> getLehetosegek(){
-        return utvonalak.stream().filter(x -> x.getStartID() == aktualisHelyszin).toList();
+    public static int[] getLehetosegek(){
+        return new int[]{}; //utvonalak.stream().filter(x -> x.getStartID() == aktualisHelyszin).toList();
     }
     
-    public static Helyszin getHelyszin(){
-        return helyszinek.stream().filter(x -> x.getId() == aktualisHelyszin).findFirst().get();
+    public static String[] getHelyszin(){
+        return new String[]{};//helyszinek.stream().filter(x -> x.getId() == aktualisHelyszin).findFirst().get();
     }
     
     public static int getUgyesseg(){
@@ -308,11 +316,6 @@ public class HL {
     
      public static void fileUploads(){
         eszkoztar.clear();
-        
-        
-        
-        
-        
         int i = 0;
         String filename = "szotar\\helyszinek.txt";
         helyszinek.clear();
@@ -431,6 +434,8 @@ public class HL {
             }
             i++;
         }
+        
     }
      // </editor-fold>
+        
 }
